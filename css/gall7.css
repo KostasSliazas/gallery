@@ -42,7 +42,6 @@
 
 #insi7 {
   text-align: center;
-  transition: .2s opacity;
 }
 
 #foot7,
@@ -209,6 +208,8 @@
 
 .hdi {
   opacity:0;
+}
+.sca{
   transform: scale(0);
 }
 .w10 {
