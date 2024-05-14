@@ -2,7 +2,7 @@
 // Use JSHint to enforce ECMAScript version 11 (ES2020) syntax rules.
 
 // Import necessary utilities
-import { element, append, de, delay } from "./helpers";
+import { element, append, de, delay } from './helpers';
 
 // Define methods for the UI prototype
 export const methods = {
@@ -11,7 +11,7 @@ export const methods = {
     this.isAutoPlayOn = true;
 
     // Update play button's class if necessary
-    if (this.showButtons) this.play.className = "but tpo lft bra brb opa atc";
+    if (this.showButtons) this.play.className = 'but tpo lft bra brb opa atc';
 
     // Set a timeout to move to the next image after a specified delay
     this.timeOut = delay(() => {
@@ -19,8 +19,8 @@ export const methods = {
 
       // Hide buttons if configured not to show during auto-play
       if (!this.showButtonsOnPlay) {
-        this.left.className = this.rigt.className = this.clos.className = "dpn";
-        if (this.showButtons) this.foot.className = this.onow.className = "dpn";
+        this.left.className = this.rigt.className = this.clos.className = 'dpn';
+        if (this.showButtons) this.foot.className = this.onow.className = 'dpn';
       }
 
       // Clear auto-play if the last image is reached
@@ -31,7 +31,7 @@ export const methods = {
   // Callback when image loading is complete
   loadComplete() {
     // Hide the spinner
-    this.spin.className = "dpn";
+    this.spin.className = 'dpn';
 
     // Resume auto-play if it was active
     if (this.isAutoPlayOn) this.autoPlayLoop();
@@ -39,7 +39,7 @@ export const methods = {
 
   // Trigger download of the current image
   downloads() {
-    const a = element("a", "rel", "noopener", "download", this.imgs.src.split("/").pop(), "href", this.imgs.src, "target", "_blank");
+    const a = element('a', 'rel', 'noopener', 'download', this.imgs.src.split('/').pop(), 'href', this.imgs.src, 'target', '_blank');
     a.click();
     a.remove();
   },
@@ -63,10 +63,10 @@ export const methods = {
 
     // Reset button and UI visibility
     if (this.showButtons) {
-      this.foot.className = this.onow.className = "";
-      this.play.className = "but tpo lft bra brb opa";
+      this.foot.className = this.onow.className = '';
+      this.play.className = 'but tpo lft bra brb opa';
     }
-    if (!this.showButtonsOnPlay) this.clos.className = "but bra brb rtm rtp opa";
+    if (!this.showButtonsOnPlay) this.clos.className = 'but bra brb rtm rtp opa';
 
     // Adjust visibility of left and right buttons
     this.leftRigthBtnsShow();
@@ -75,33 +75,37 @@ export const methods = {
 
   // Close the image viewer
   close() {
-    this.imag.className = "hdi w10 tpo lft";
+    this.imag.className = 'sca hdi w10 tpo lft';
     this.isActive = false;
-    de.className = de.className.split("fff").join("").trim();
+    de.className = de.className.split('fff').join('').trim();
   },
 
   // Adjust visibility of left and right buttons based on the current image index
   leftRigthBtnsShow() {
-    this.left.className = this.indexOfImage === 0 ? "dpn" : "tpo lft hvr";
-    this.rigt.className = this.indexOfImage === this.imagesArray.length - 1 ? "dpn" : "tpo rgt hvr";
+    this.left.className = this.indexOfImage === 0 ? 'dpn' : 'but tpo lft hvr';
+    this.rigt.className = this.indexOfImage === this.imagesArray.length - 1 ? 'dpn' : 'but tpo rgt hvr';
   },
 
   // Show the current image
   show() {
+    this.spin.className = 'bor';
+    this.insi.className = 'w10 hdi';
+    this.imgs.removeAttribute('src');
+
     const index = this.imagesArray[this.indexOfImage];
     const imageSource = index.src;
 
     // Generate full file path with folder and extension
-    const fileName = imageSource.split("/").pop();
-    const arrayFileName = fileName.split(".");
-    const fileNameWithExtension = arrayFileName[0] + "." + (this.extension || arrayFileName[1]);
-    const fullNamePrefixed = arrayFileName === "svg" ? imageSource : imageSource.replace(fileName, this.folder + fileNameWithExtension);
+    const fileName = imageSource.split('/').pop();
+    const arrayFileName = fileName.split('.');
+    const fileNameWithExtension = arrayFileName[0] + '.' + (this.extension || arrayFileName[1]);
+    const fullNamePrefixed = arrayFileName === 'svg' ? imageSource : imageSource.replace(fileName, this.folder + fileNameWithExtension);
 
     // Activate the UI if not active
     if (!this.isActive) {
       this.isActive = true;
-      delay(() => { de.className = de.className ? de.className + " fff" : "fff"; }, 90);
-      this.imag.className = "fff w10 tpo lft";
+      delay(() => { de.className = de.className ? de.className + ' fff' : 'fff'; }, 90);
+      this.imag.className = 'fff w10 tpo lft';
     }
 
     // Check if the image source matches the current image; if so, do nothing
@@ -109,12 +113,11 @@ export const methods = {
 
     // Update UI state and trigger image loading
     this.leftRigthBtnsShow();
-    this.spin.className = "bor";
-    this.insi.className = 'hdi w10';
 
-    delay(() => { this.insi.className = "w10"; }, 232);
 
-    this.imgs.removeAttribute('src');
+
+    // Set the image source based on the file type
+    this.imgs.src = arrayFileName[1] !== 'svg' ? fullNamePrefixed : imageSource;
 
     // Handle errors during image loading by resetting and retrying
     this.imgs.onerror = function (e) {
@@ -126,23 +129,19 @@ export const methods = {
     this.imgs.onload = function (e) {
       // Update UI elements with image information
       if (this.showButtons) {
-        this.alts.innerText = e.target.src.split("/").pop();
+        this.alts.innerText = e.target.src.split('/').pop();
         this.fine.innerText = Number(this.indexOfImage) + 1;
       }
-
       // Complete image loading
       this.loadComplete();
+      delay(() => { this.insi.className = 'w10'; }, 232);
     }.bind(this);
-
-    // Set the image source based on the file type
-    if (arrayFileName[1] !== "svg") this.imgs.src = fullNamePrefixed;
-    else this.imgs.src = imageSource;
   },
 
   // Listen for clicks on images and show the corresponding image
   listenForIG(e) {
     const target = e.target;
-    if (target.tagName === "IMG") {
+    if (target.tagName === 'IMG') {
       this.indexOfImage = this.imagesArray.indexOf(target) > -1 ? this.imagesArray.indexOf(target) : 0;
       this.show();
       e.stopImmediatePropagation();
