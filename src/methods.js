@@ -4,6 +4,10 @@
 // Import necessary utilities
 import { element, append, de, delay } from './helpers';
 
+//same clases to variable
+const sameClasses = 'but bra brb opa ';
+const dn = 'dpn';
+
 // Define methods for the UI prototype
 export const methods = {
   // Start auto-play loop with a delay
@@ -11,7 +15,7 @@ export const methods = {
     this.isAutoPlayOn = true;
 
     // Update play button's class if necessary
-    if (this.showButtons) this.play.className = 'but tpo lft bra brb opa atc';
+    if (this.showButtons) this.play.className = sameClasses + 'tpo lft atc';
 
     // Set a timeout to move to the next image after a specified delay
     this.timeOut = delay(() => {
@@ -19,8 +23,8 @@ export const methods = {
 
       // Hide buttons if configured not to show during auto-play
       if (!this.showButtonsOnPlay) {
-        this.left.className = this.rigt.className = this.clos.className = 'dpn';
-        if (this.showButtons) this.foot.className = this.onow.className = 'dpn';
+        this.left.className = this.rigt.className = this.clos.className = dn;
+        if (this.showButtons) this.foot.className = this.onow.className = dn;
       }
 
       // Clear auto-play if the last image is reached
@@ -31,7 +35,7 @@ export const methods = {
   // Callback when image loading is complete
   loadComplete() {
     // Hide the spinner
-    this.spin.className = 'dpn';
+    this.spin.className = dn;
 
     // Resume auto-play if it was active
     if (this.isAutoPlayOn) this.autoPlayLoop();
@@ -60,16 +64,15 @@ export const methods = {
   clear() {
     clearTimeout(this.timeOut);
     this.isAutoPlayOn = false;
-
     // Reset button and UI visibility
     if (this.showButtons) {
       this.foot.className = this.onow.className = '';
-      this.play.className = 'but tpo lft bra brb opa';
+      this.play.className = sameClasses + 'tpo lft';
     }
-    if (!this.showButtonsOnPlay) this.clos.className = 'but bra brb rtm rtp opa';
+    if (!this.showButtonsOnPlay) this.clos.className = sameClasses + 'rtm rtp';
 
     // Adjust visibility of left and right buttons
-    this.leftRigthBtnsShow();
+    // this.leftRigthBtnsShow();
     return this;
   },
 
@@ -82,16 +85,13 @@ export const methods = {
 
   // Adjust visibility of left and right buttons based on the current image index
   leftRigthBtnsShow() {
-    this.left.className = this.indexOfImage === 0 ? 'dpn' : 'but tpo lft hvr';
-    this.rigt.className = this.indexOfImage === this.imagesArray.length - 1 ? 'dpn' : 'but tpo rgt hvr';
+    const sameClasses = 'but tpo hvr '
+    this.left.className = this.indexOfImage === 0 ? dn : sameClasses + 'lft';
+    this.rigt.className = this.indexOfImage === this.imagesArray.length - 1 ? dn : sameClasses + 'rgt';
   },
 
   // Show the current image
   show() {
-    this.spin.className = 'bor';
-    this.insi.className = 'w10 hdi';
-    this.imgs.removeAttribute('src');
-
     const index = this.imagesArray[this.indexOfImage];
     const imageSource = index.src;
 
@@ -114,10 +114,9 @@ export const methods = {
     // Update UI state and trigger image loading
     this.leftRigthBtnsShow();
 
-
-
-    // Set the image source based on the file type
-    this.imgs.src = arrayFileName[1] !== 'svg' ? fullNamePrefixed : imageSource;
+    this.spin.className = 'bor';
+    // this.insi.className = 'w10 hdi';
+    this.imgs.removeAttribute('src');
 
     // Handle errors during image loading by resetting and retrying
     this.imgs.onerror = function (e) {
@@ -134,8 +133,13 @@ export const methods = {
       }
       // Complete image loading
       this.loadComplete();
-      delay(() => { this.insi.className = 'w10'; }, 232);
+      // if we want to hide all image when loading*******
     }.bind(this);
+      // if we want to show image when loading*******
+    // delay(() => { this.insi.className = 'w10'; }, 232);
+
+    // Set the image source based on the file type
+    this.imgs.src = arrayFileName[1] !== 'svg' ? fullNamePrefixed : imageSource;
   },
 
   // Listen for clicks on images and show the corresponding image
