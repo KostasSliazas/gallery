@@ -90,7 +90,7 @@ body {
     color: var(--color0);
     font: 16px/1.5em"Play", Arial, Geneva, Tahoma, sans-serif;
     overflow-x: hidden;
-    background: radial-gradient(circle,transparent 20%,var(--color4) 50%) no-repeat fixed 340px 0/100%,url(../img/bg.png) no-repeat fixed right 0/513px 937px;
+    background: radial-gradient(circle,transparent 20%,var(--color4) 50%) no-repeat fixed 0 0/100%,url(../img/bg.png) no-repeat fixed right 0/100% 100%
 }
 
 .grids>div,
