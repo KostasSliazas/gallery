@@ -83,7 +83,6 @@ html {
     scroll-behavior: smooth;
     scroll-padding-top: 4px;
     background: var(--color4);
-    overflow-y: auto;
 }
 
 body {
