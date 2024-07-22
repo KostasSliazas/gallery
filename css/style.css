@@ -100,11 +100,6 @@ main {
     border-image: linear-gradient(to bottom, var(--color1), transparent)1 1
 }
 
-body,
-main {
-    min-height: 900px;
-}
-
 a {
     color: var(--color1);
     text-decoration: none;
