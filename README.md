@@ -1,7 +1,14 @@
 # Gallery
 
 Welcome to **kostassliazas.github.io/gallery**, a showcase of images and media that highlights creative collections, projects, or experiments. This gallery is designed to display various media in an engaging and responsive manner.
+## Quick Links
 
+- [Demo](#demo)
+- [Technologies Used](#technologies-used)
+- [How to Use](#how-to-use)
+- [Contributing](#contributing)
+- [License](#license)
+  
 ## Demo
 
 You can view the live demo of the gallery [here]([https://github.com/KostasSliazas/gallery](https://kostassliazas.github.io/gallery/).
@@ -26,6 +33,7 @@ You can view the live demo of the gallery [here]([https://github.com/KostasSliaz
 ## Contributing
 
 Feel free to contribute to the project by submitting issues or pull requests. Your ideas and improvements are welcome!
-License
+
+## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
