@@ -4,13 +4,12 @@ Welcome to **kostassliazas.github.io/gallery**, a showcase of images and media t
 
 ## Demo
 
-You can view the live demo of the gallery [here](https://github.com/KostasSliazas/gallery).
+You can view the live demo of the gallery [here]([https://github.com/KostasSliazas/gallery](https://kostassliazas.github.io/gallery/).
 
 ## Features
 
 - **Responsive Design**: Adaptable to different screen sizes, ensuring a great experience on both desktop and mobile devices.
-- **Custom Layouts**: Easily add or customize image grids, sliders, and lightbox effects.
-- **Media Support**: Display various media types like images, videos, and GIFs.
+- **Custom Layouts**: Easily add or customize buttons.
 
 ## Technologies Used
 
