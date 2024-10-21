@@ -100,7 +100,7 @@ export const methods = {
     if (!this.isActive) {
       this.isActive = true;
 
-      delay(() => { de.className = de.className ? de.className + ' fff' : 'fff'; }, 90);
+      delay(() => { de.className = de.className ? de.className + ' fff' : 'fff'; }, 34); //delay for smother full screen, because need to hide scrollbars
       this.imag.className = 'fff w10 tpo lft';
     }
 
@@ -111,11 +111,11 @@ export const methods = {
     this.leftRigthBtnsShow();
 
     this.spin.className = 'bor';
-    // this.insi.className = 'w10 hdi';
-    // this.imgs.removeAttribute('src');
+
     //******IMAGE RE-CREATING
     this.insi.removeChild(this.imgs)
-    this.imgs = new Image();
+    //this.imgs = new Image();
+    this.imgs = element('img', 'src', arrayFileName[1] !== 'svg' ? fullNamePrefixed : imageSource, 'alt', index.alt + ' selected'); // leaving space for empty alts /*.trim()*/
 
     // Load the image source
     this.imgs.onload = function (e) {
@@ -136,7 +136,7 @@ export const methods = {
     // show to user image index
     this.fine.innerText = Number(this.indexOfImage) + 1;
     // Set the image source based on the file type
-    this.imgs.src = arrayFileName[1] !== 'svg' ? fullNamePrefixed : imageSource;
+    // this.imgs.src = arrayFileName[1] !== 'svg' ? fullNamePrefixed : imageSource;
     //append image to the DOM and show how it's loading (downloading data)
     append(this.insi, this.imgs)
   },

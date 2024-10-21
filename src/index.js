@@ -14,10 +14,13 @@ Object.assign(UI.prototype, methods);
 const ui = new UI(defaults);
 
 // Populate the UI instance with images retrieved from the DOM
-ui.addImagesToArray();
+const lenthOfImages = ui.addImagesToArray();
 
+// if found images add other stuff
+if(lenthOfImages){
 // Initialize the UI, setting up initial configurations and state
 ui.init();
 
 // Add event listeners to enable user interactions
 listeners.call(ui);
+}
