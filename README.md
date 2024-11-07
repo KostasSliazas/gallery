@@ -4,7 +4,7 @@ Welcome to **kostassliazas.github.io/gallery**, a showcase of images, projects, 
 ## Quick Links
 
 - [Demo]([https://github.com/KostasSliazas/gallery](https://kostassliazas.github.io/gallery/#demo)
-- [Setup Instructions](#how-to-use)
+- [Setup Instructions](#setup-instructions)
 - [Contributing](#contributing)
 - [Technologies Used](#technologies-used)
 - [License](#license)
