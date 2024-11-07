@@ -26,9 +26,31 @@ You can view the live demo of the gallery [here]([https://github.com/KostasSliaz
 
 ## How to Use
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/KostasSliazas/gallery.git
+## Setup Instructions
+
+1. **Clone the repository:**
+    ```bash
+    git clone https://github.com/KostasSliazas/gallery.git
+    ```
+
+2. **Add `main.js` file to the `js` folder.**
+
+3. **Add the following script to the `<head>` section in your HTML file:**
+    ```html
+    <script defer src="js/main.js"></script>
+    ```
+
+4. **Customize default background colors in your CSS (optional):**
+
+    If you want to change the default colors for the gallery, add or update these variables in your CSS file:
+    ```css
+    :root {
+      --color1: #eef; /* Gallery image background */
+      --color2: #aab; /* Gallery background */
+    }
+    ``` 
+
+  
 
 ## Contributing
 
