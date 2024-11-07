@@ -3,13 +3,12 @@
 Welcome to **kostassliazas.github.io/gallery**, a showcase of images, projects, or experiments.
 ## Quick Links
 
-- [Demo]([https://github.com/KostasSliazas/gallery](https://kostassliazas.github.io/gallery/)
-- [How to Use](#how-to-use)
+- [Demo]([https://github.com/KostasSliazas/gallery](https://kostassliazas.github.io/gallery/#demo)
+- [Setup Instructions](#how-to-use)
 - [Contributing](#contributing)
 - [Technologies Used](#technologies-used)
 - [License](#license)
-  
-## How to Use
+
 ## Setup Instructions
 
 1. **Clone the repository:**
