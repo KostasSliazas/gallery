@@ -1,6 +1,6 @@
 # Gallery
 
-Welcome to **kostassliazas.github.io/gallery**, a showcase of images and media that highlights creative collections, projects, or experiments. This gallery is designed to display various media in an engaging and responsive manner.
+Welcome to **kostassliazas.github.io/gallery**, a showcase of images and media that highlights creative collections, projects, or experiments.
 ## Quick Links
 
 - [Demo](#demo)
