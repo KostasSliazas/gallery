@@ -1,31 +1,15 @@
 # Gallery
 
-Welcome to **kostassliazas.github.io/gallery**, a showcase of images and media that highlights creative collections, projects, or experiments.
+Welcome to **kostassliazas.github.io/gallery**, a showcase of images, projects, or experiments.
 ## Quick Links
 
-- [Demo](#demo)
-- [Technologies Used](#technologies-used)
+- [Demo]([https://github.com/KostasSliazas/gallery](https://kostassliazas.github.io/gallery/)
 - [How to Use](#how-to-use)
 - [Contributing](#contributing)
+- [Technologies Used](#technologies-used)
 - [License](#license)
   
-## Demo
-
-You can view the live demo of the gallery [here]([https://github.com/KostasSliazas/gallery](https://kostassliazas.github.io/gallery/).
-
-## Features
-
-- **Responsive Design**: Adaptable to different screen sizes, ensuring a great experience on both desktop and mobile devices.
-- **Custom Layouts**: Easily add or customize buttons.
-
-## Technologies Used
-
-- **HTML**: Structure of the gallery.
-- **CSS**: Custom styles for layout and design.
-- **JavaScript**: Interactive elements like image sliders or lightboxes.
-
 ## How to Use
-
 ## Setup Instructions
 
 1. **Clone the repository:**
@@ -50,7 +34,11 @@ You can view the live demo of the gallery [here]([https://github.com/KostasSliaz
     }
     ``` 
 
-  
+## Technologies Used
+
+- **HTML**: Structure of the gallery.
+- **CSS**: Custom styles for layout and design.
+- **JavaScript**: Interactive elements like image sliders or lightboxes.
 
 ## Contributing
 
