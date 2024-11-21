@@ -39,10 +39,6 @@ Welcome to **kostassliazas.github.io/gallery**, a showcase of images, projects, 
 - **CSS**: Custom styles for layout and design.
 - **JavaScript**: Interactive elements like image sliders or lightboxes.
 
-## Contributing
-
-Feel free to contribute to the project by submitting issues or pull requests. Your ideas and improvements are welcome!
-
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
