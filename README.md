@@ -5,7 +5,6 @@ Welcome to **kostassliazas.github.io/gallery**, a showcase of images, projects, 
 
 - [Demo](https://kostassliazas.github.io/gallery/#demo)
 - [Setup Instructions](#setup-instructions)
-- [Contributing](#contributing)
 - [Technologies Used](#technologies-used)
 - [License](#license)
 
