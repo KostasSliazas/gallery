@@ -60,6 +60,43 @@ export function listeners() {
   // Optional touch handling (commented out)
   // Uncomment and implement touchStart and touchEnd if needed for swipe actions
 
+  // const minHorizontalMove = 30;
+  // const maxVerticalMove = 30;
+  // const withinMs = 1000;
+  // let startXPos, startYPos, startTime;
+  //
+  // // Record starting position and time on touch start
+  // function touchStart(e) {
+  //   const touch = e.touches[0];
+  //   startXPos = touch.pageX;
+  //   startYPos = touch.pageY;
+  //   startTime = new Date();
+  // }
+  //
+  // // Check for swipe left/right on touch end and trigger corresponding action
+  // function touchEnd(e) {
+  //   const touch = e.changedTouches[0];
+  //   const endXPos = touch.pageX;
+  //   const endYPos = touch.pageY;
+  //   const endTime = new Date();
+  //
+  //   const moveX = endXPos - startXPos;
+  //   const moveY = endYPos - startYPos;
+  //   const elapsedTime = endTime - startTime;
+  //
+  //   const isHorizontalMove = Math.abs(moveX) > minHorizontalMove;
+  //   const isVerticalMove = Math.abs(moveY) < maxVerticalMove;
+  //   const isWithinTime = elapsedTime < withinMs;
+  //
+  //   if (isHorizontalMove && isVerticalMove && isWithinTime) {
+  //     k[moveX < 0 ? 'rigt7' : 'left7']();
+  //   }
+  // }
+  //
+  // // Attach event listeners to relevant DOM elements and the window
+  // that.imag.addEventListener('touchstart', touchStart, { passive: true });
+  // that.imag.addEventListener('touchend', touchEnd);
+
   // Attach event listeners for click and keyboard events
   that.imag.addEventListener('click', switcher.bind(that));
   w.addEventListener('keyup', switcher.bind(that));
