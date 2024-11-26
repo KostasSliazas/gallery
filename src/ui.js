@@ -1,61 +1,78 @@
 /*jshint esversion: 11 */
 import { element, append, d, delay } from './helpers';
-// let _isLoaded = false
+
 class UI {
   constructor(conf) {
-    // Constructor to initialize UI instance with configuration
-    // if (_isLoaded) { return }
-    // _isLoaded = true
+    /**
+     * Constructor initializes the UI instance with configuration.
+     * @param {Object} conf - Configuration object containing user-defined settings.
+     */
     const that = this;
     Object.assign(that, conf);
-    that.imagesArray = []; // all elements array
-    that.indexOfImage = null;
-    that.isAutoPlayOn = false;
-    that.isActive = false;
-    that.timeOut = 0;
+    that.imagesArray = []; // Stores all `img` elements found in the container
+    that.indexOfImage = null; // Index of the current image being viewed
+    that.isAutoPlayOn = false; // State to track autoplay functionality
+    that.isActive = false; // State to check if UI is active
+    that.timeOut = 0; // Autoplay timeout
   }
 
   addImagesToArray() {
+    /**
+     * Adds all `img` elements from the container to `imagesArray`.
+     * Sets up event listeners for image click detection.
+     * @returns {number} The number of images found and added to the array.
+     */
     const that = this;
-    const container = d.getElementsByClassName(that.imageContainer).length > 0 ? d.getElementsByClassName(that.imageContainer) : d.getElementsByTagName('body');
+    const container = d.getElementsByClassName(that.imageContainer).length > 0
+      ? d.getElementsByClassName(that.imageContainer)
+      : d.getElementsByTagName('body');
+    const containerLength = container.length;
 
-    // micro optimization but we use it twice in code
-    const containerLength = container.length
-    // Loop through elements and add to array
-    for (let i = 0; i < containerLength; i++) that.imagesArray.push.apply(that.imagesArray, container[i].getElementsByTagName('img'));
+    for (let i = 0; i < containerLength; i++) {
+      that.imagesArray.push(...container[i].getElementsByTagName('img'));
+    }
 
-    const clickHandler = function (e) { that.listenForIG(e);}.bind(that);
+    const clickHandler = function (e) {
+      that.listenForIG(e);
+    }.bind(that);
 
-    if (container[0] && container[0].tagName === 'BODY') d.body.onclick = clickHandler;     // Set click handler on the body if the container is the body
-    else for (let i = 0; i < containerLength; i++) container[i].onclick = clickHandler; // Set click handler on each container element
-    return that.imagesArray.length
+    if (container[0] && container[0].tagName === 'BODY') {
+      d.body.onclick = clickHandler;
+    } else {
+      for (let i = 0; i < containerLength; i++) {
+        container[i].onclick = clickHandler;
+      }
+    }
+
+    return that.imagesArray.length;
   }
 
   init() {
+    /**
+     * Initializes the UI by setting up necessary DOM elements and styles.
+     */
     const that = this;
-    // add link CSS to head with base64 string
-    const resource = element('link', 'rel', 'stylesheet', 'href', 'data:text/css;base64,QC13ZWJraXQta2V5ZnJhbWVzIHJ7dG97LXdlYmtpdC10cmFuc2Zvcm06cm90YXRlKDM2MGRlZyk7dHJhbnNmb3JtOnJvdGF0ZSgzNjBkZWcpfX1Aa2V5ZnJhbWVzIHJ7dG97LXdlYmtpdC10cmFuc2Zvcm06cm90YXRlKDM2MGRlZyk7dHJhbnNmb3JtOnJvdGF0ZSgzNjBkZWcpfX0jaW1hZzd7dXNlci1zZWxlY3Q6bm9uZTtiYWNrZ3JvdW5kOiMyMjM7Y29sb3I6Izc3Nztwb3NpdGlvbjpmaXhlZDt6LWluZGV4Ojk5OTk5OX0jaW1hZzcgI2luc2k3IGltZ3tiYWNrZ3JvdW5kOiMzMzQ7bWF4LWhlaWdodDoxMDAlO21heC13aWR0aDoxMDAlfSNpbWFnNyAqLCNpbWFnNyA6OmFmdGVyLCNpbWFnNyA6OmJlZm9yZXtmb250OjEycHgvNCBzYW5zLXNlcmlmO3Bvc2l0aW9uOmFic29sdXRlO2JveC1zaXppbmc6Ym9yZGVyLWJveH0jaW1hZzcgYnV0dG9uICp7ei1pbmRleDotMTtwb2ludGVyLWV2ZW50czpub25lfSNpbWFnNyAjaW5zaTd7dGV4dC1hbGlnbjpjZW50ZXJ9I2ltYWc3ICNmb290NywjaW1hZzcgI29ub3c3e3RleHQtaW5kZW50OjUwcHg7d2hpdGUtc3BhY2U6bm93cmFwO2JvdHRvbToyNHB4O2hlaWdodDo0OHB4fSNpbWFnNyAjYWx0czd7cmlnaHQ6NTBweH0jaW1hZzcgI2FsdHM3LCNpbWFnNyAjaW5zaTcsI2ltYWc3ICNpbnNpNyBpbWcsI2ltYWc3ICNzdGF0N3twb3NpdGlvbjpyZWxhdGl2ZX0jaW1hZzcgI2xlZnQ3LCNpbWFnNyAjcmlndDd7d2lkdGg6MjAlO21pbi13aWR0aDo5NnB4O2JvcmRlcjowO2JhY2tncm91bmQ6MCAwO2hlaWdodDoxMDAlfSNpbWFnNyAjaWxlZjc6OmFmdGVyLCNpbWFnNyAjaXJpZzc6OmFmdGVye3BhZGRpbmc6OXB4O3RvcDoxNHB4fSNpbWFnNyAjaWxlZjc6OmFmdGVye2JvcmRlci13aWR0aDoycHggMCAwIDJweDtsZWZ0OjE0cHh9I2ltYWc3ICNpcmlnNzo6YWZ0ZXJ7cmlnaHQ6MTRweDtib3JkZXItd2lkdGg6MnB4IDJweCAwIDB9I2ltYWc3ICNsZWZ0Nzpob3ZlciAjaWxlZjc6OmFmdGVye2xlZnQ6OXB4fSNpbWFnNyAjcmlndDc6aG92ZXIgI2lyaWc3OjphZnRlcntyaWdodDo5cHh9I2ltYWc3ICNjbG9zNzo6YWZ0ZXIsI2ltYWc3ICNjbG9zNzo6YmVmb3Jle2JvcmRlci13aWR0aDowIDAgMCAycHg7aGVpZ2h0OjMwcHg7bGVmdDoyM3B4O3RvcDoxMHB4fSNpbWFnNyAjcGxheTc6OmJlZm9yZSwjaW1hZzcgI3Nwbntib3JkZXItcmFkaXVzOjUwJTtoZWlnaHQ6MjRweDt3aWR0aDoyNHB4fSNpbWFnNyAjc3Buey13ZWJraXQtYW5pbWF0aW9uOnIgLjNzIGxpbmVhciBpbmZpbml0ZTthbmltYXRpb246ciAuM3MgbGluZWFyIGluZmluaXRlO2JvcmRlci1jb2xvcjp0cmFuc3BhcmVudCAjYWFhO2xlZnQ6NTAlO21hcmdpbjotMTJweCAwIDAgLTEycHg7dG9wOjUwJX0jaW1hZzcgI2Rvd243e2JvcmRlci1yYWRpdXM6MCAwIDJweCAycHg7dG9wOjI3cHg7aGVpZ2h0OjZweDt3aWR0aDoyNHB4O2JvcmRlci10b3A6MH0jaW1hZzcgI3BsYXk3OjpiZWZvcmV7dHJhbnNpdGlvbjouMnMgYm9yZGVyLXJhZGl1czt0b3A6MTJweH0jaW1hZzcgI3BsYXk3LmF0Yzo6YmVmb3Jle2JvcmRlci1yYWRpdXM6NHB4fSNpbWFnNyAjcGxheTc6OmFmdGVye2JvcmRlci1jb2xvcjp0cmFuc3BhcmVudCAjZmZmO2JvcmRlci13aWR0aDo1cHggMCA1cHggMTJweDtsZWZ0OjE5cHg7dG9wOjE5cHg7d2lkdGg6MTBweH0jaW1hZzcgI3BsYXk3LmF0Yzo6YWZ0ZXJ7Ym9yZGVyLXdpZHRoOjAgMnB4O3BhZGRpbmctdG9wOjEwcHh9I2ltYWc3ICN3ZG93Nzo6YWZ0ZXJ7Ym9yZGVyLXdpZHRoOjAgMCAycHggMnB4O2JvdHRvbToyMXB4O2hlaWdodDoxMnB4O2xlZnQ6MThweDt3aWR0aDoxMnB4fSNpbWFnNyAjd2Rvdzc6OmJlZm9yZXtiYWNrZ3JvdW5kOiNmZmY7aGVpZ2h0OjE4cHg7bGVmdDoyM3B4O3RvcDo5cHg7d2lkdGg6MnB4fSNpbWFnNyAjY2xvczd7dG9wOjI0cHh9I2ltYWc3ICNkb3duNywjaW1hZzcgI3BsYXk3OjpiZWZvcmV7bGVmdDoxMnB4fSNpbWFnNyAjY2xvczcsI2ltYWc3ICNpcmlnNywjaW1hZzcgI29ub3c3e3JpZ2h0OjI0cHg7dGV4dC1hbGlnbjpyaWdodH0jaW1hZzcgI2Zvb3Q3LCNpbWFnNyAjaWxlZjd7bGVmdDoyNHB4fSNpbWFnNyAjaW5zaTcgaW1nLCNpbWFnNyAudHJue3RvcDo1MCU7ei1pbmRleDotMTstd2Via2l0LXRyYW5zZm9ybTp0cmFuc2xhdGUoLTUwJSk7dHJhbnNmb3JtOnRyYW5zbGF0ZVkoLTUwJSl9I2ltYWc3IC5ydHA6OmFmdGVyLCNpbWFnNyAucnRwOjpiZWZvcmV7LXdlYmtpdC10cmFuc2Zvcm06cm90YXRlKDQ1ZGVnKTt0cmFuc2Zvcm06cm90YXRlKDQ1ZGVnKX0jaW1hZzcgLnJ0bTo6YWZ0ZXJ7LXdlYmtpdC10cmFuc2Zvcm06cm90YXRlKC00NWRlZyk7dHJhbnNmb3JtOnJvdGF0ZSgtNDVkZWcpfSNpbWFnNyAudzEwLCNpbWFnNy53MTB7aGVpZ2h0OjEwMCU7d2lkdGg6MTAwJX0jaW1hZzcgLmJvciwjaW1hZzcgLmJyYTo6YWZ0ZXIsI2ltYWc3IC5icmI6OmJlZm9yZXtib3JkZXI6MnB4IHNvbGlkICNmZmZ9I2ltYWc3IC5idXR7YmFja2dyb3VuZDpyZ2JhKDc3LDc3LDc3LC4yKTtoZWlnaHQ6NDhweDt3aWR0aDo0OHB4O2JvcmRlci1yYWRpdXM6NTAlO2JvcmRlcjowO2N1cnNvcjpwb2ludGVyfSNpbWFnNyAuYnV0OjphZnRlciwjaW1hZzcgLmJ1dDo6YmVmb3Jle2NvbnRlbnQ6IiJ9I2ltYWc3IC5idXQ6Zm9jdXMsI2ltYWc3IC5idXQ6aG92ZXIsI2ltYWc3IC5idXQ6aG92ZXIgc3BhbntiYWNrZ3JvdW5kOnJnYmEoNyw3LDcsLjEpO291dGxpbmU6MDtvcGFjaXR5OjF9I2ltYWc3IC5idXQ6YWN0aXZle29wYWNpdHk6LjN9I2ltYWc3IC5kcG57dmlzaWJpbGl0eTpoaWRkZW59I2ltYWc3IC5oZGksI2ltYWc3LmhkaXtvcGFjaXR5OjB9I2ltYWc3IC5vcGF7b3BhY2l0eTouN30jaW1hZzcgLnJndHtyaWdodDowfSNpbWFnNyAudHBvLCNpbWFnNy50cG97dG9wOjB9I2ltYWc3IC5sZnQsI2ltYWc3LmxmdHtsZWZ0OjB9I2ltYWc3IC5mZmYsI2ltYWc3LmZmZixodG1sLmZmZntvdmVyZmxvdzpoaWRkZW4haW1wb3J0YW50fSNpbWFnNy5zY2F7dHJhbnNmb3JtOnNjYWxlKDApfUBtZWRpYSBvbmx5IHNjcmVlbiBhbmQgKG1pbi13aWR0aDoxMDI0cHgpeyNpbWFnNzpub3QoOmhvdmVyKSAjY2VudDd+ZGl2LCNpbWFnNzpub3QoOmhvdmVyKSAjaW5zaTd+YnV0dG9ue29wYWNpdHk6MH19');
-    // Append the stylesheet to the document head
+
+    // Add inline CSS using base64 string
+    const resource = element(
+      'link',
+      'rel', 'stylesheet',
+      'href', 'data:text/css;base64,QC13ZWJraXQta2V5ZnJhbWVzIHJ7dG97LXdlYmtpdC10cmFuc2Zvcm06cm90YXRlKDM2MGRlZyk7dHJhbnNmb3JtOnJvdGF0ZSgzNjBkZWcpfX1Aa2V5ZnJhbWVzIHJ7dG97LXdlYmtpdC10cmFuc2Zvcm06cm90YXRlKDM2MGRlZyk7dHJhbnNmb3JtOnJvdGF0ZSgzNjBkZWcpfX0jaW1hZzd7dXNlci1zZWxlY3Q6bm9uZTtiYWNrZ3JvdW5kOnZhcigtLWNvbG9yMiwjMjIzKTtjb2xvcjojNzc3O3Bvc2l0aW9uOmZpeGVkO3otaW5kZXg6OTk5OTk5O3RyYW5zaXRpb246LjJzIHRyYW5zZm9ybX0jaW1hZzcgI2luc2k3IGltZ3tiYWNrZ3JvdW5kOnZhcigtLWNvbG9yMSwjMzM0KTttYXgtaGVpZ2h0OjEwMCU7bWF4LXdpZHRoOjEwMCV9I2ltYWc3ICosI2ltYWc3IDo6YWZ0ZXIsI2ltYWc3IDo6YmVmb3Jle2ZvbnQ6MTJweC80IHNhbnMtc2VyaWY7cG9zaXRpb246YWJzb2x1dGU7Ym94LXNpemluZzpib3JkZXItYm94O2Rpc3BsYXk6aW5saW5lLWJsb2NrfSNpbWFnNyBidXR0b24gKnt6LWluZGV4Oi0xO3BvaW50ZXItZXZlbnRzOm5vbmV9I2ltYWc3ICNpbnNpN3t0ZXh0LWFsaWduOmNlbnRlcn0jaW1hZzcgI2Zvb3Q3LCNpbWFnNyAjb25vdzd7dGV4dC1pbmRlbnQ6NTBweDt3aGl0ZS1zcGFjZTpub3dyYXA7Ym90dG9tOjI0cHg7aGVpZ2h0OjQ4cHh9I2ltYWc3ICNhbHRzN3tyaWdodDo1MHB4fSNpbWFnNyAjYWx0czcsI2ltYWc3ICNpbnNpNywjaW1hZzcgI2luc2k3IGltZywjaW1hZzcgI3N0YXQ3e3Bvc2l0aW9uOnJlbGF0aXZlfSNpbWFnNyAjc3RhdDd7dGV4dC1pbmRlbnQ6MH0jaW1hZzcgI2xlZnQ3LCNpbWFnNyAjcmlndDd7d2lkdGg6MjAlO21pbi13aWR0aDo5NnB4O2JvcmRlcjowO2JhY2tncm91bmQ6MCAwO2hlaWdodDoxMDAlfSNpbWFnNyAjaWxlZjc6OmFmdGVyLCNpbWFnNyAjaXJpZzc6OmFmdGVye3BhZGRpbmc6OXB4O3RvcDoxNHB4fSNpbWFnNyAjaWxlZjc6OmFmdGVye2JvcmRlci13aWR0aDoycHggMCAwIDJweDtsZWZ0OjE0cHh9I2ltYWc3ICNpcmlnNzo6YWZ0ZXJ7cmlnaHQ6MTRweDtib3JkZXItd2lkdGg6MnB4IDJweCAwIDB9I2ltYWc3ICNsZWZ0Nzpob3ZlciAjaWxlZjc6OmFmdGVye2xlZnQ6OXB4fSNpbWFnNyAjcmlndDc6aG92ZXIgI2lyaWc3OjphZnRlcntyaWdodDo5cHh9I2ltYWc3ICNjbG9zNzo6YWZ0ZXIsI2ltYWc3ICNjbG9zNzo6YmVmb3Jle2JvcmRlci13aWR0aDowIDAgMCAycHg7aGVpZ2h0OjMwcHg7bGVmdDoyM3B4O3RvcDoxMHB4fSNpbWFnNyAjcGxheTc6OmJlZm9yZSwjaW1hZzcgI3Nwbntib3JkZXItcmFkaXVzOjUwJTtoZWlnaHQ6MjRweDt3aWR0aDoyNHB4fSNpbWFnNyAjc3Buey13ZWJraXQtYW5pbWF0aW9uOnIgLjNzIGxpbmVhciBpbmZpbml0ZTthbmltYXRpb246ciAuM3MgbGluZWFyIGluZmluaXRlO2JvcmRlci1jb2xvcjp0cmFuc3BhcmVudCAjYWFhO2xlZnQ6NTAlO21hcmdpbjotMTJweCAwIDAtMTJweDt0b3A6NTAlfSNpbWFnNyAjZG93bjd7Ym9yZGVyLXJhZGl1czowIDAgMnB4IDJweDt0b3A6MjdweDtoZWlnaHQ6NnB4O3dpZHRoOjI0cHg7Ym9yZGVyLXRvcDowfSNpbWFnNyAjcGxheTc6OmJlZm9yZXt0cmFuc2l0aW9uOi4ycyBib3JkZXItcmFkaXVzO3RvcDoxMnB4fSNpbWFnNyAjcGxheTcuYXRjOjpiZWZvcmV7Ym9yZGVyLXJhZGl1czo0cHh9I2ltYWc3ICNwbGF5Nzo6YWZ0ZXJ7Ym9yZGVyLWNvbG9yOnRyYW5zcGFyZW50ICNmZmY7Ym9yZGVyLXdpZHRoOjVweCAwIDVweCAxMnB4O2xlZnQ6MTlweDt0b3A6MTlweDt3aWR0aDoxMHB4fSNpbWFnNyAjcGxheTcuYXRjOjphZnRlcntib3JkZXItd2lkdGg6MCAycHg7cGFkZGluZy10b3A6MTBweH0jaW1hZzcgI3dkb3c3OjphZnRlcntib3JkZXItd2lkdGg6MCAwIDJweCAycHg7Ym90dG9tOjIxcHg7aGVpZ2h0OjEycHg7bGVmdDoxOHB4O3dpZHRoOjEycHh9I2ltYWc3ICN3ZG93Nzo6YmVmb3Jle2JhY2tncm91bmQ6I2ZmZjtoZWlnaHQ6MThweDtsZWZ0OjIzcHg7dG9wOjlweDt3aWR0aDoycHh9I2ltYWc3ICNjbG9zN3t0b3A6MjRweH0jaW1hZzcgI2Rvd243LCNpbWFnNyAjcGxheTc6OmJlZm9yZXtsZWZ0OjEycHh9I2ltYWc3ICNjbG9zNywjaW1hZzcgI2lyaWc3LCNpbWFnNyAjb25vdzd7cmlnaHQ6MjRweDt0ZXh0LWFsaWduOnJpZ2h0fSNpbWFnNyAjZm9vdDcsI2ltYWc3ICNpbGVmN3tsZWZ0OjI0cHh9I2ltYWc3ICNpbnNpNyBpbWcsI2ltYWc3IC50cm57dG9wOjUwJTt6LWluZGV4Oi0xOy13ZWJraXQtdHJhbnNmb3JtOnRyYW5zbGF0ZSgtNTAlKTt0cmFuc2Zvcm06dHJhbnNsYXRlWSgtNTAlKX0jaW1hZzcgLnJ0cDo6YWZ0ZXIsI2ltYWc3IC5ydHA6OmJlZm9yZXstd2Via2l0LXRyYW5zZm9ybTpyb3RhdGUoNDVkZWcpO3RyYW5zZm9ybTpyb3RhdGUoNDVkZWcpfSNpbWFnNyAucnRtOjphZnRlcnstd2Via2l0LXRyYW5zZm9ybTpyb3RhdGUoLTQ1ZGVnKTt0cmFuc2Zvcm06cm90YXRlKC00NWRlZyl9I2ltYWc3IC53MTAsI2ltYWc3LncxMHtoZWlnaHQ6MTAwJTt3aWR0aDoxMDAlfSNpbWFnNyAuYm9yLCNpbWFnNyAuYnJhOjphZnRlciwjaW1hZzcgLmJyYjo6YmVmb3Jle2JvcmRlcjoycHggc29saWQgI2ZmZn0jaW1hZzcgLmJ1dHtiYWNrZ3JvdW5kOnJnYmEoNzcsNzcsNzcsLjIpO2hlaWdodDo0OHB4O3dpZHRoOjQ4cHg7Ym9yZGVyLXJhZGl1czo1MCU7Ym9yZGVyOjA7Y3Vyc29yOnBvaW50ZXI7dHJhbnNpdGlvbjouMnN9I2ltYWc3IC5idXQ6OmFmdGVyLCNpbWFnNyAuYnV0OjpiZWZvcmV7Y29udGVudDoiIn0jaW1hZzcgLmJ1dDpmb2N1cywjaW1hZzcgLmJ1dDpob3ZlciwjaW1hZzcgLmJ1dDpob3ZlciBzcGFue2JhY2tncm91bmQ6cmdiYSg3LDcsNywuMSk7b3V0bGluZTowO29wYWNpdHk6MX0jaW1hZzcgLmJ1dDphY3RpdmV7b3BhY2l0eTouM30jaW1hZzcgLmRwbnt2aXNpYmlsaXR5OmhpZGRlbn0jaW1hZzcgLmhkaSwjaW1hZzcuaGRpe29wYWNpdHk6MH0jaW1hZzcgLm9wYXtvcGFjaXR5Oi43fSNpbWFnNyAucmd0e3JpZ2h0OjB9I2ltYWc3IC50cG8sI2ltYWc3LnRwb3t0b3A6MH0jaW1hZzcgLmxmdCwjaW1hZzcubGZ0e2xlZnQ6MH0jaW1hZzcgLmZmZiwjaW1hZzcuZmZmLGh0bWwuZmZme292ZXJmbG93OmhpZGRlbiFpbXBvcnRhbnR9I2ltYWc3LnNjYXt0cmFuc2Zvcm06c2NhbGUoMCl9QG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWluLXdpZHRoOjEwMjRweCl7I2ltYWc3Om5vdCg6aG92ZXIpICNjZW50N35kaXYsI2ltYWc3Om5vdCg6aG92ZXIpICNpbnNpN35idXR0b257b3BhY2l0eTowfX0='
+    );
     append(d.getElementsByTagName('head')[0], resource);
-    // Shortened variable names for HTML elements
-    const b = 'button'
-    const s = 'span'
-    const v = 'div'
-    const a = 'aria-label'
-    const c = 'class'
-    const i = 'id'
-    // All elements for UI rendering; first letter for element, other pairs are attributes
-    that.clos = element(b, i, 'clos7', c, 'bra rtp opa but rtm brb', a, 'Close', 'title', 'Press Esc to close');
-    that.ilef = element(s, i, 'ilef7', c, 'bra rtm opa trn but');
-    that.irig = element(s, i, 'irig7', c, 'bra rtp opa but trn');
-    that.imag = element(v, i, 'imag7', c, 'sca hdi fff w10 tpo lft','role','dialog', a, 'imag7');
-    that.cent = element(v, i, 'cent7', c, 'tpo lft w10');
-    that.left = element(b, i, 'left7', c, 'but tpo lft', a, 'Previous');
-    that.rigt = element(b, i, 'rigt7', c, 'but tpo rgt', a, 'Next');
-    that.insi = element(v, i, 'insi7', c, 'w10');
-    that.spin = element(v, i, 'spn', c, 'dpn');
-    that.imgs = element('img', 'src', 'data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=', 'alt', '', 'loading','lazy');
-    // that.imgs = element('img', 'src', 'src="data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAgA0JaQAA3AA/vuUAAA="', 'alt', 'alt'); // set first image src
+
+    // DOM elements setup
+    that.clos = element('button', 'id', 'clos7', 'class', 'bra rtp opa but rtm brb', 'aria-label', 'Close', 'title', 'Press Esc to close');
+    that.ilef = element('span', 'id', 'ilef7', 'class', 'bra rtm opa trn but');
+    that.irig = element('span', 'id', 'irig7', 'class', 'bra rtp opa but trn');
+    that.imag = element('div', 'id', 'imag7', 'class', 'sca hdi fff w10 tpo lft', 'role', 'dialog', 'aria-label', 'imag7');
+    that.cent = element('div', 'id', 'cent7', 'class', 'tpo lft w10');
+    that.left = element('button', 'id', 'left7', 'class', 'but tpo lft', 'aria-label', 'Previous');
+    that.rigt = element('button', 'id', 'rigt7', 'class', 'but tpo rgt', 'aria-label', 'Next');
+    that.insi = element('div', 'id', 'insi7', 'class', 'w10');
+    that.spin = element('div', 'id', 'spn', 'class', 'dpn');
+    that.imgs = element('img', 'src', 'data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACwAAAAAAQABAEACAkQBADs=', 'alt', '', 'loading', 'lazy');
+
     append(that.insi, that.imgs);
     append(that.rigt, that.irig);
     append(that.left, that.ilef);
@@ -63,23 +80,26 @@ class UI {
     append(that.imag, that.cent, that.spin);
     append(d.body, that.imag);
 
-    // Show download and autoplay buttons if (true = default) otherwise not render
     if (that.showButtons) {
-      that.wdow = element(b, i, 'wdow7', c, 'tpo rgt bra rtm opa but', a, 'download');
-      that.play = element(b, i, 'play7', c, 'tpo lft bra brb opa but', a, 'play');
-      that.foot = element(v, i, 'foot7');
-      that.onow = element(v, i, 'onow7');
-      that.alts = element(s, i, 'alts7', c, 'fff');
-      that.fine = element(s, i, 'stat7');
-      that.down = element(s, i, 'down7', c, 'bor');
+      // Additional elements for buttons (Download, Play, etc.)
+      that.wdow = element('button', 'id', 'wdow7', 'class', 'tpo rgt bra rtm opa but', 'aria-label', 'download');
+      that.play = element('button', 'id', 'play7', 'class', 'tpo lft bra brb opa but', 'aria-label', 'play');
+      that.foot = element('div', 'id', 'foot7');
+      that.onow = element('div', 'id', 'onow7');
+      that.alts = element('span', 'id', 'alts7', 'class', 'fff');
+      that.fine = element('span', 'id', 'stat7');
+      that.down = element('span', 'id', 'down7', 'class', 'bor');
+
       append(that.onow, that.alts, that.wdow);
       append(that.imag, that.onow, that.foot);
-      append(that.foot, that.play, d.createTextNode('Image '),that.fine, d.createTextNode(' of ' + that.imagesArray.length));
+      append(that.foot, that.play, d.createTextNode('Image '), that.fine, d.createTextNode(' of ' + that.imagesArray.length));
       append(that.wdow, that.down);
     }
-    // Remove last class name (.dpn = display none) some time (220ms) because 'black' squere shows (it's hack :( )
-    // delay(() => that.imag.className = 'sca hdi fff w10 tpo lft', 220);
+
+    // Delay class change to prevent rendering glitches
+    delay(() => that.imag.className = 'sca hdi fff w10 tpo lft', 220);
   }
 }
 
 export { UI };
+

@@ -39,7 +39,13 @@ export const methods = {
 
   // Trigger download of the current image
   downloads() {
-    const a = element('a', 'rel', 'noopener', 'download', this.imgs.src.split('/').pop(), 'href', this.imgs.src, 'target', '_blank');
+    const a = element(
+      'a',
+      'rel', 'noopener',
+      'download', this.imgs.src.split('/').pop(),
+      'href', this.imgs.src,
+      'target', '_blank'
+    );
     a.click();
     a.remove();
   },
@@ -60,6 +66,7 @@ export const methods = {
   clear() {
     clearTimeout(this.timeOut);
     this.isAutoPlayOn = false;
+
     // Reset button and UI visibility
     if (this.showButtons) {
       this.foot.className = this.onow.className = '';
@@ -67,8 +74,6 @@ export const methods = {
     }
     if (!this.showButtonsOnPlay) this.clos.className = 'but bra brb opa rtm rtp';
 
-    // Adjust visibility of left and right buttons
-    // this.leftRigthBtnsShow();
     return this;
   },
 
@@ -94,17 +99,22 @@ export const methods = {
     const fileName = imageSource.split('/').pop();
     const arrayFileName = fileName.split('.');
     const fileNameWithExtension = arrayFileName[0] + '.' + (this.extension || arrayFileName[1]);
-    const fullNamePrefixed = arrayFileName === 'svg' ? imageSource : imageSource.replace(fileName, this.folder + fileNameWithExtension);
+    const fullNamePrefixed = arrayFileName === 'svg'
+      ? imageSource
+      : imageSource.replace(fileName, this.folder + fileNameWithExtension);
 
     // Activate the UI if not active
     if (!this.isActive) {
       this.isActive = true;
 
-      delay(() => { de.className = de.className ? de.className + ' fff' : 'fff'; }, 34); //delay for smother full screen, because need to hide scrollbars
+      delay(() => {
+        de.className = de.className ? de.className + ' fff' : 'fff';
+      }, 34); // Delay for smoother fullscreen transition
+
       this.imag.className = 'fff w10 tpo lft';
     }
 
-    // Check if the image source matches the current image; if so, do nothing
+    // Prevent reloading if the current image matches the source
     if (this.imgs.src === fullNamePrefixed || this.imgs.src === imageSource) return;
 
     // Update UI state and trigger image loading
@@ -112,33 +122,28 @@ export const methods = {
 
     this.spin.className = 'bor';
 
-    //******IMAGE RE-CREATING
-    this.insi.removeChild(this.imgs)
-    //this.imgs = new Image();
-    this.imgs = element('img', 'src', arrayFileName[1] !== 'svg' ? fullNamePrefixed : imageSource, 'alt', index.alt + ' selected'); // leaving space for empty alts /*.trim()*/
+    // Remove old image and append the new one
+    this.insi.removeChild(this.imgs);
+    this.imgs = element(
+      'img',
+      'src', arrayFileName[1] !== 'svg' ? fullNamePrefixed : imageSource,
+      'alt', index.alt + ' selected'
+    );
 
-    // Load the image source
     this.imgs.onload = function (e) {
-      // Update UI elements with image information
       if (this.showButtons) {
         this.alts.innerText = e.target.src.split('/').pop();
       }
-      // Complete image loading
       this.loadComplete();
     }.bind(this);
 
-    // Handle errors during image loading by resetting and retrying
     this.imgs.onerror = function (e) {
       e.target.onerror = null;
       e.target.src = imageSource;
     };
 
-    // show to user image index
     this.fine.innerText = Number(this.indexOfImage) + 1;
-    // Set the image source based on the file type
-    // this.imgs.src = arrayFileName[1] !== 'svg' ? fullNamePrefixed : imageSource;
-    //append image to the DOM and show how it's loading (downloading data)
-    append(this.insi, this.imgs)
+    append(this.insi, this.imgs);
   },
 
   // Listen for clicks on images and show the corresponding image
