@@ -4,7 +4,7 @@
 /**
  * @fileOverview Default configuration settings for the application.
  * @version 1.0.0
- * @author [Your Name]
+ * @author Kostas Šliažas
  */
 
 /**
