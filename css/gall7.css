@@ -7,7 +7,7 @@
 #imag7 {
   user-select: none;
   background: var(--color2,#223);
-  color: #777;
+  color: var(--color1, #aaa);
   position: fixed;
   z-index: 999999;
   transition: transform 0.2s;
@@ -245,6 +245,5 @@
 #imag7:not(:hover) #cent7 ~ div {
   opacity: 0;
 }
-
 }
 
