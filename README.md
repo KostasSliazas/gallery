@@ -31,7 +31,13 @@ Welcome to **kostassliazas.github.io/gallery**, a showcase of images, projects, 
       --color2: #aab; /* Gallery background */
     }
     ``` 
-
+   If both --color1 and --color2 are set to the same value, the text will become invisible
+    ```css
+   #imag7 {
+      --color1: #000;
+      --color2: #000;
+   }
+   ```
 ## Technologies Used
 
 - **HTML**: Structure of the gallery.
