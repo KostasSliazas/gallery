@@ -1,3 +1,5 @@
+/*jshint esversion: 11 */
+// Use JSHint to enforce ECMAScript version 11 (ES2020) syntax rules.
 import { w } from './helpers';
 
 /**
@@ -42,7 +44,7 @@ export function listeners() {
    *
    * @param {KeyboardEvent|MouseEvent} e - The event object.
    */
-  function switcher(e) {
+  const switcher = (e) => {
     if (!that.isActive || e.isComposing || e.key === 229) return;
 
     // Get the event key or target ID

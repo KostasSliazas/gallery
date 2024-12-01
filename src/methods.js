@@ -99,8 +99,7 @@ export const methods = {
     const fileName = imageSource.split('/').pop();
     const arrayFileName = fileName.split('.');
     const fileNameWithExtension = arrayFileName[0] + '.' + (this.extension || arrayFileName[1]);
-    const fullNamePrefixed = arrayFileName === 'svg'
-      ? imageSource
+    const fullNamePrefixed = arrayFileName === 'svg' ? imageSource
       : imageSource.replace(fileName, this.folder + fileNameWithExtension);
 
     // Activate the UI if not active
@@ -130,14 +129,14 @@ export const methods = {
       'alt', index.alt + ' selected'
     );
 
-    this.imgs.onload = function (e) {
-      if (this.showButtons) {
+    this.imgs.onload = (e) => {
+    if (this.showButtons) {
         this.alts.innerText = e.target.src.split('/').pop();
-      }
-      this.loadComplete();
-    }.bind(this);
+    }
+    this.loadComplete();
+    };
 
-    this.imgs.onerror = function (e) {
+    this.imgs.onerror = (e) => {
       e.target.onerror = null;
       e.target.src = imageSource;
     };
