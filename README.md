@@ -27,17 +27,10 @@ Welcome to **kostassliazas.github.io/gallery**, a showcase of images, projects, 
     If you want to change the default colors for the gallery, add or update these variables in your CSS file:
     ```css
     :root {
-      --color1: #eef; /* Gallery image background */
-      --color2: #aab; /* Gallery background */
+      --color1: #999; /* Gallery image background */
+      --color2: #777; /* Gallery background */
     }
     ``` 
-   If both --color1 and --color2 are set to the same value, the text will become invisible
-    ```css
-   #imag7 {
-      --color1: #000;
-      --color2: #000;
-   }
-   ```
 5. **Check and Customize Defaults to Match Your Preferences (Optional):**  
 ```javascript
 // Default settings for the application
