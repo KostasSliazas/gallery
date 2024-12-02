@@ -22,7 +22,7 @@ Welcome to **kostassliazas.github.io/gallery**, a showcase of images, projects, 
     <script defer src="js/main.js"></script>
     ```
 
-4. **Customize default background colors in your CSS (optional):**
+4. **Customize default background colors in your CSS (Optional):**
 
     If you want to change the default colors for the gallery, add or update these variables in your CSS file:
     ```css
@@ -38,7 +38,7 @@ Welcome to **kostassliazas.github.io/gallery**, a showcase of images, projects, 
       --color2: #000;
    }
    ```
-5. **Check and Customize Defaults to Match Your Preferences    
+5. **Check and Customize Defaults to Match Your Preferences (Optional):**  
 ```javascript
 // Default settings for the application
 export const defaults = {
