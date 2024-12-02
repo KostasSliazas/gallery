@@ -49,6 +49,7 @@ export const defaults = {
   showButtonsOnPlay: 1, // Display buttons when autoplay is active.
   extension: '' // Additional extension for large resolution (empty = same image extension).
 };
+```
 
 ## Technologies Used
 
