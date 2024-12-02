@@ -38,6 +38,18 @@ Welcome to **kostassliazas.github.io/gallery**, a showcase of images, projects, 
       --color2: #000;
    }
    ```
+5. **Check and Customize Defaults to Match Your Preferences    
+```javascript
+// Default settings for the application
+export const defaults = {
+  delaySeconds: 1033, // Delay time in milliseconds before the next action.
+  folder: 'l/', // Folder name or image prefix (prefix should not include '/').
+  imageContainer: 'images', // Class name for the image container. If empty, all images are selected.
+  showButtons: 1, // Display buttons by default. (true = 1 and false = 0)
+  showButtonsOnPlay: 1, // Display buttons when autoplay is active.
+  extension: '' // Additional extension for large resolution (empty = same image extension).
+};
+
 ## Technologies Used
 
 - **HTML**: Structure of the gallery.
