@@ -7,7 +7,7 @@
 #imag7 {
   user-select: none;
   background: var(--color2,#223);
-  color: var(--color1, #aaa);
+  color: #aaa;
   position: fixed;
   z-index: 999999;
   transition: transform 0.2s;
