@@ -1,0 +1,16 @@
+{
+  "name": "gall7",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+       "build": "webpack"
+  },
+  "keywords": [],
+  "author": "Kostas Šliažas",
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4"
+  }
+}
