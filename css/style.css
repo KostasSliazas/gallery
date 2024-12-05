@@ -1,11 +1,3 @@
-:root {
-    --color0: #eef;
-    --color1: #aab;
-    --color2: #778;
-    --color3: #556;
-    --color4: #334;
-}
-
 @keyframes ans {
     25% {
         border-radius: 20px 0 0 0
@@ -38,15 +30,14 @@
     }
 }
 
-
 @keyframes rot {
     0% {
-        transform: rotate3d(0, 0, 0, 0);
-        box-shadow: 0 0 0 2px var(--color3), 0 0 10px 0 var(--color4);
+        transform: rotate3d(0,0,0,0);
+        box-shadow: 0 0 0 2px var(--color3),0 0 10px 0 var(--color4)
     }
 
     to {
-        transform: rotate3d(1, 0, 0, 20deg);
+        transform: rotate3d(1,0,0,20deg)
     }
 }
 
@@ -64,56 +55,72 @@
 
 @keyframes boar {
     0% {
-        border-image: linear-gradient(to left, var(--color4) 0, var(--color1) 100%)0 0 0 0
+        border-image: linear-gradient(to left,var(--color4)0,var(--color1) 100%)0 0 0 0
     }
 
     to {
-        border-image: linear-gradient(to top, var(--color4) 0%, var(--color1) 100%) 1px 1px 1px 1px
+        border-image: linear-gradient(to top,var(--color4) 0%,var(--color1) 100%) 1px 1px 1px 1px
     }
 }
 
+@font-face {
+    font-family:"kitten-corner";src:url(../font/kitten-corner.woff2)format("woff2"),url(../font/kitten-corner.woff)format("woff");font-weight:400;font-style:normal;font-display:swap
+}
+
+:root {
+    --color0: #eef;
+    --color1: #aab;
+    --color2: #778;
+    --color3: #556;
+    --color4: #334
+}
+
+*,ul {
+    padding: 0
+}
+
 * {
-    padding: 0;
     margin: 0;
     box-sizing: border-box
 }
-
 
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 4px;
     background: var(--color4);
-    overflow-y: auto;
+    overflow-y: auto
 }
 
 body {
     background-color: var(--color1);
     color: var(--color0);
-    font: 16px/1.5em"Play", Arial, Geneva, Tahoma, sans-serif;
+    font: 16px/1.5 kitten-corner,Calibri,Candara,Segoe,"Segoe UI",Optima,Arial,sans-serif;
     overflow-x: hidden;
-    background: radial-gradient(circle,transparent 20%,var(--color4) 50%) no-repeat fixed 0 0/100%,url(../img/bg.png) no-repeat fixed right 0/100% 100%
+    background: radial-gradient(circle,transparent 20%,var(--color4) 50%) no-repeat fixed 0 0/100%,url(../img/bg.png)no-repeat fixed right 0/100% 100%
 }
 
-.grids>div,
-main {
+.grids>div,main {
     border-width: 1px;
     border-style: solid;
-    border-image: linear-gradient(to bottom, var(--color1), transparent)1 1
+    border-image: linear-gradient(to bottom,var(--color1),transparent)1 1
 }
 
 a {
     color: var(--color1);
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: color .3s ease
 }
 
 a:hover {
-    color: var(--color4);
+    color: var(--color4)
 }
-ul{padding:0;list-style: none;}
+
+ul {
+    list-style: none
+}
 
 main {
-    display: block;
+    display: block
 }
 
 .grids {
@@ -128,7 +135,7 @@ main {
 .grids>div:before {
     content: "";
     display: block;
-    background: var(--color0) url(../img/tool.svg)no-repeat center/cover;
+    background: var(--color0)url(../img/tool.svg)no-repeat center/cover;
     position: absolute;
     top: 0;
     width: 100%;
@@ -170,12 +177,9 @@ main {
 
 .grids>div:hover p {
     background-color: var(--color1);
-}
-
-.grids>div:hover p {
     transition: ease .2s;
     color: var(--color4);
-    box-shadow: 0 0 0 1px var(--color4), 0 0 0 10px var(--color2)
+    box-shadow: 0 0 0 1px var(--color4),0 0 0 10px var(--color2)
 }
 
 .grids p {
@@ -196,8 +200,7 @@ p:last-child {
     padding-bottom: 1em
 }
 
-#loader,
-#wrapLoad {
+#loader,#wrapLoad {
     display: block;
     top: 0;
     left: 0
@@ -217,9 +220,9 @@ p:last-child {
 }
 
 #loader {
-    background: -webkit-repeating-linear-gradient(315deg, var(--color0) 0, #445 33%, #002 33%, var(--color0) 39%, #002 52%, #002 100%)0 0/600px;
-    background: -o-repeating-linear-gradient(315deg, var(--color0) 0, #445 33%, #002 33%, var(--color0) 39%, #002 52%, #002 100%)0 0/600px;
-    background: repeating-linear-gradient(135deg, var(--color0) 0, #445 33%, #002 33%, var(--color0) 39%, #002 52%, #002 100%)0 0/600px;
+    background: -webkit-repeating-linear-gradient(315deg,var(--color0)0,#445 33%,#002 33%,var(--color0) 39%,#002 52%,#002 100%)0 0/600px;
+    background: -o-repeating-linear-gradient(315deg,var(--color0)0,#445 33%,#002 33%,var(--color0) 39%,#002 52%,#002 100%)0 0/600px;
+    background: repeating-linear-gradient(135deg,var(--color0)0,#445 33%,#002 33%,var(--color0) 39%,#002 52%,#002 100%)0 0/600px;
     border-radius: 4px;
     border: 2px solid var(--color3);
     border-top: 18px solid var(--color3);
@@ -230,17 +233,16 @@ p:last-child {
     position: absolute;
     right: 0;
     bottom: 0;
-    -webkit-animation: gra .4s linear alternate infinite, rot .4s alternate infinite ease;
-    animation: gra .4s linear alternate infinite, rot .4s alternate infinite ease;
-    -webkit-box-shadow: 0 4px 0 0var(--color0), 4px 4px 2px 0 var(--color3);
-    box-shadow: 0 4px 0 0 var(--color0), 4px 4px 2px 0 var(--color3);
+    -webkit-animation: gra .4s linear alternate infinite,rot .4s alternate infinite ease;
+    animation: gra .4s linear alternate infinite,rot .4s alternate infinite ease;
+    -webkit-box-shadow: 0 4px 0 0var(--color0),4px 4px 2px 0 var(--color3);
+    box-shadow: 0 4px 0 0 var(--color0),4px 4px 2px 0 var(--color3);
     z-index: 1;
     -webkit-transform: translateZ(0);
     transform: translateZ(0)
 }
 
-#loader:after,
-#loader:before {
+#loader:after,#loader:before {
     display: block;
     text-align: center
 }
@@ -277,7 +279,7 @@ p:last-child {
     header span {
         position: relative;
         line-height: 2;
-        background: var(--color3);
+        background: var(--color3)
     }
 
     main {
@@ -308,13 +310,11 @@ p:last-child {
     }
 }
 
-#stuff,
-nav {
+#stuff,nav {
     margin: 0 auto
 }
 
-#stuff,
-.oses {
+#stuff,.oses,nav ul {
     display: block
 }
 
@@ -334,11 +334,11 @@ nav {
     color: transparent;
     border-width: 3px;
     border-style: solid;
-    -webkit-border-image: -webkit-gradient(linear, left top, left bottom, from(var(--color1)), to(var(--color3)));
-    -webkit-border-image: -webkit-linear-gradient(var(--color1), var(--color3));
-    -o-border-image: -o-linear-gradient(var(--color1), var(--color3));
-    border-image: -webkit-gradient(linear, left top, left bottom, from(var(--color1)), to(var(--color3)));
-    border-image: linear-gradient(var(--color1), var(--color3))
+    -webkit-border-image: -webkit-gradient(linear,left top,left bottom,from(var(--color1)),to(var(--color3)));
+    -webkit-border-image: -webkit-linear-gradient(var(--color1),var(--color3));
+    -o-border-image: -o-linear-gradient(var(--color1),var(--color3));
+    border-image: -webkit-gradient(linear,left top,left bottom,from(var(--color1)),to(var(--color3)));
+    border-image: linear-gradient(var(--color1),var(--color3))
 }
 
 .oses:hover {
@@ -352,7 +352,7 @@ nav {
 
 nav {
     max-width: 1000px;
-    text-align: right;
+    text-align: right
 }
 
 nav ul {
@@ -360,8 +360,7 @@ nav ul {
     margin: 0;
     padding: 0 0 0 1px;
     list-style-type: none;
-    font-size: 0;
-    display: block
+    font-size: 0
 }
 
 nav a:focus-within {
@@ -381,18 +380,17 @@ nav a {
     color: var(--color1);
     border-width: 1px;
     border-style: solid;
-    border-image: linear-gradient(to top, var(--color1) 0, transparent 50%, transparent 51%)1 1;
+    border-image: linear-gradient(to top,var(--color1)0,transparent 50%,transparent 51%)1 1;
     -webkit-transition: .2s all;
     -o-transition: .2s all;
     transition: .1s all;
     z-index: 1;
     margin: 0 0 0-1px;
     position: relative;
-    transform: translate(0, 1px)
+    transform: translate(0,1px)
 }
 
-nav a:active,
-nav a:hover {
+nav a:active,nav a:hover {
     color: var(--color0);
     z-index: 2
 }
@@ -403,5 +401,5 @@ footer p {
 
 .wrp {
     padding: 4px 0;
-    margin: 0 1.5em;
+    margin: 0 1.5em
 }
