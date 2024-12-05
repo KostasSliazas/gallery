@@ -28,10 +28,7 @@ const element = (tagName, ...attributes) => {
 };
 
 // Helper function to introduce a delay before executing a callback function
-const delay = (callback, milliseconds) => {
-  // Set a timeout to execute the callback after the specified delay
-  setTimeout(callback, milliseconds);
-};
+const delay = (callback, milliseconds) => setTimeout(callback, milliseconds);
 
 // Export the helper functions for use in other modules or scripts
 export { element, append, w, d, de, delay };

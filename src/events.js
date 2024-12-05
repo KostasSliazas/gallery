@@ -36,7 +36,7 @@ export function listeners() {
       that.right().show();
     }, // Move right action
     clos7() {
-      that.clear().close();
+      that.close();
     }, // Close action
     wdow7() {
       that.downloads();
@@ -44,10 +44,10 @@ export function listeners() {
   };
 
   // Map additional keys to specific actions
-  k[` `] = k.play7; // Spacebar for play/pause
+  k[` `] = k.play7; // Space for play/pause
   k[`ArrowLeft`] = k.left7; // Left arrow for left navigation
   k[`ArrowRight`] = k.rigt7; // Right arrow for right navigation
-  k[`Escape`] = k.clos7; // Escape for close action
+  // k[`Escape`] = k.clos7; // Escape for close action
 
   /**
    * Handles keyboard and click events, invoking the appropriate action.
@@ -58,12 +58,14 @@ export function listeners() {
     // Get the event key or target ID
     const ev = e.key || e.target.id;
     // for escape button only just close immediately
-    if (ev === 'Escape') that.close();
+    if (ev === 'Escape' || ev === 'clos7') that.close();
+
     if (!k[ev] || that.isAutoPlayOn || !that.isActive || e.isComposing || e.key === 229) {
       // Execute the corresponding action or clear the state if no match
       that.clear();
       return;
     }
+
     k[ev]();
 
     // Prevent default behavior and stop event propagation

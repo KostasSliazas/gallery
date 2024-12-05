@@ -9,28 +9,30 @@ export const methods = {
   // Start auto-play loop with a delay
   autoPlayLoop() {
     if (!this.isAutoPlayOn) {
-      this.play.className = 'but bra brb opa tpo lft atc';
+      //set the play button active for first time (playing)
+      if (this.showButtons) this.play.className = 'but bra brb opa tpo lft atc';
       if (!this.showButtonsOnPlay) {
         // Hide buttons if configured not to show during auto-play
-        this.left.className = this.rigt.className = this.clos.className = 'dpn';
         if (this.showButtons) {
           this.foot.className = this.onow.className = 'dpn';
         }
+        this.left.className = this.rigt.className = this.clos.className = 'dpn';
       }
     }
 
+    clearTimeout(this.timeOut);
     this.isAutoPlayOn = true;
 
     // Set a timeout to move to the next image after a specified delay
     this.timeOut = delay(() => {
-      if (!this.isAutoPlayOn) return;
-      this.right().show();
+      if (this.isAutoPlayOn) {
+        this.right().show();
 
-      // Clear auto-play if the last image is reached
-      if (this.indexOfImage === this.imagesArray.length - 1) return this.clear();
-      this.autoPlayLoop();
+        // Clear auto-play if the last image is reached
+        if (this.indexOfImage === this.imagesArray.length - 1) return this.clear();
+        this.autoPlayLoop();
+      }
     }, this.delaySeconds);
-    // Update play button's class if necessary
   },
 
   // Trigger download of the current image
@@ -54,24 +56,21 @@ export const methods = {
 
   // Clear auto-play and reset UI state
   clear() {
-    clearTimeout(this.timeOut);
-    this.isAutoPlayOn = false;
-    this.leftRightButtonsVisibility();
-    return this;
-  },
-
-  leftRightButtonsVisibility() {
-    if (this.isAutoPlayOn) return;
-
+    //same classes names
     const classNames = 'but bra brb opa';
-    // Reset button and UI visibility
+    // if show buttons compiled display them
     if (this.showButtons) {
       this.foot.className = this.onow.className = '';
       this.play.className = classNames + ' tpo lft';
     }
+    // always show close button on clear
+    this.clos.className = classNames + ' rtm rtp';
+    this.leftRightButtonsVisibility();
+    this.isAutoPlayOn = false;
+    return this;
+  },
 
-    if (!this.showButtonsOnPlay) this.clos.className = classNames + ' rtm rtp';
-    // Hide buttons if configured not to show during auto-play
+  leftRightButtonsVisibility() {
     // Adjust visibility of left and right buttons based on the current image index
     this.left.className = this.indexOfImage === 0 ? 'dpn' : 'but tpo hvr lft';
     this.rigt.className = this.indexOfImage === this.imagesArray.length - 1 ? 'dpn' : 'but tpo hvr rgt';
@@ -133,6 +132,10 @@ export const methods = {
 
     if (this.fine) this.fine.innerText = Number(this.indexOfImage) + 1;
     append(this.insi, this.imgs);
+
+    // don't change left right visibility'
+    if (this.isAutoPlayOn && !this.showButtonsOnPlay) return;
+
     this.leftRightButtonsVisibility();
   },
 

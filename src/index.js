@@ -15,10 +15,10 @@ Object.assign(UI.prototype, methods);
 const ui = new UI(defaults);
 
 // Populate the UI instance with images retrieved from the DOM
-const lenthOfImages = ui.addImagesToArray();
+const lengthOfImages = ui.addImagesToArray();
 
 // if found images, initialize the UI and add event listeners
-if (lenthOfImages) {
+if (lengthOfImages) {
   // Initialize the UI, setting up initial configurations and state
   ui.init();
 
