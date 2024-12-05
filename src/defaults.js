@@ -23,5 +23,5 @@ export const defaults = {
   imageContainer: 'images', // Class name for the image container. If empty, all images are selected.
   showButtons: 1, // Display buttons by default. (true = 1 and false = 0)
   showButtonsOnPlay: 1, // Display buttons when autoplay is active.
-  extension: '' // Additional extension for large resolution (empty = same image extension).
+  extension: '', // Additional extension for large resolution (empty = same image extension).
 };

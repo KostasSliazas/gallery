@@ -8,44 +8,34 @@ import { element, append, de, delay } from './helpers';
 export const methods = {
   // Start auto-play loop with a delay
   autoPlayLoop() {
-    this.isAutoPlayOn = true;
+    if (!this.isAutoPlayOn) {
+      this.play.className = 'but bra brb opa tpo lft atc';
+      if (!this.showButtonsOnPlay) {
+        // Hide buttons if configured not to show during auto-play
+        this.left.className = this.rigt.className = this.clos.className = 'dpn';
+        if (this.showButtons) {
+          this.foot.className = this.onow.className = 'dpn';
+        }
+      }
+    }
 
-    // Update play button's class if necessary
-    if (this.showButtons) this.play.className = 'but bra brb opa tpo lft atc';
+    this.isAutoPlayOn = true;
 
     // Set a timeout to move to the next image after a specified delay
     this.timeOut = delay(() => {
+      if (!this.isAutoPlayOn) return;
       this.right().show();
 
-      // Hide buttons if configured not to show during auto-play
-      if (!this.showButtonsOnPlay) {
-        this.left.className = this.rigt.className = this.clos.className = 'dpn';
-        if (this.showButtons) this.foot.className = this.onow.className = 'dpn';
-      }
-
       // Clear auto-play if the last image is reached
-      if (this.indexOfImage === this.imagesArray.length - 1) this.clear();
+      if (this.indexOfImage === this.imagesArray.length - 1) return this.clear();
+      this.autoPlayLoop();
     }, this.delaySeconds);
-  },
-
-  // Callback when image loading is complete
-  loadComplete() {
-    // Hide the spinner
-    this.spin.className = 'dpn';
-
-    // Resume auto-play if it was active
-    if (this.isAutoPlayOn) this.autoPlayLoop();
+    // Update play button's class if necessary
   },
 
   // Trigger download of the current image
   downloads() {
-    const a = element(
-      'a',
-      'rel', 'noopener',
-      'download', this.imgs.src.split('/').pop(),
-      'href', this.imgs.src,
-      'target', '_blank'
-    );
+    const a = element('a', 'rel', 'noopener', 'download', this.imgs.src.split('/').pop(), 'href', this.imgs.src, 'target', '_blank');
     a.click();
     a.remove();
   },
@@ -66,28 +56,32 @@ export const methods = {
   clear() {
     clearTimeout(this.timeOut);
     this.isAutoPlayOn = false;
+    this.leftRightButtonsVisibility();
+    return this;
+  },
 
+  leftRightButtonsVisibility() {
+    if (this.isAutoPlayOn) return;
+
+    const classNames = 'but bra brb opa';
     // Reset button and UI visibility
     if (this.showButtons) {
       this.foot.className = this.onow.className = '';
-      this.play.className = 'but bra brb opa tpo lft';
+      this.play.className = classNames + ' tpo lft';
     }
-    if (!this.showButtonsOnPlay) this.clos.className = 'but bra brb opa rtm rtp';
 
-    return this;
+    if (!this.showButtonsOnPlay) this.clos.className = classNames + ' rtm rtp';
+    // Hide buttons if configured not to show during auto-play
+    // Adjust visibility of left and right buttons based on the current image index
+    this.left.className = this.indexOfImage === 0 ? 'dpn' : 'but tpo hvr lft';
+    this.rigt.className = this.indexOfImage === this.imagesArray.length - 1 ? 'dpn' : 'but tpo hvr rgt';
   },
 
   // Close the image viewer
   close() {
-    this.imag.className = 'sca hdi w10 tpo lft';
     this.isActive = false;
+    this.imag.className = 'sca hdi w10 tpo lft';
     de.className = de.className.split('fff').join('').trim();
-  },
-
-  // Adjust visibility of left and right buttons based on the current image index
-  leftRigthBtnsShow() {
-    this.left.className = this.indexOfImage === 0 ? 'dpn' : 'but tpo hvr lft';
-    this.rigt.className = this.indexOfImage === this.imagesArray.length - 1 ? 'dpn' : 'but tpo hvr rgt';
   },
 
   // Show the current image
@@ -99,8 +93,7 @@ export const methods = {
     const fileName = imageSource.split('/').pop();
     const arrayFileName = fileName.split('.');
     const fileNameWithExtension = arrayFileName[0] + '.' + (this.extension || arrayFileName[1]);
-    const fullNamePrefixed = arrayFileName === 'svg' ? imageSource
-      : imageSource.replace(fileName, this.folder + fileNameWithExtension);
+    const fullNamePrefixed = arrayFileName === 'svg' ? imageSource : imageSource.replace(fileName, this.folder + fileNameWithExtension);
 
     // Activate the UI if not active
     if (!this.isActive) {
@@ -117,32 +110,30 @@ export const methods = {
     if (this.imgs.src === fullNamePrefixed || this.imgs.src === imageSource) return;
 
     // Update UI state and trigger image loading
-    this.leftRigthBtnsShow();
-
     this.spin.className = 'bor';
 
     // Remove old image and append the new one
     this.insi.removeChild(this.imgs);
-    this.imgs = element(
-      'img',
-      'src', arrayFileName[1] !== 'svg' ? fullNamePrefixed : imageSource,
-      'alt', index.alt + ' selected'
-    );
+    this.imgs = element('img', 'src', arrayFileName[1] !== 'svg' ? fullNamePrefixed : imageSource, 'alt', index.alt + ' selected');
 
-    this.imgs.onload = (e) => {
-    if (this.showButtons) {
+    this.imgs.onload = e => {
+      // Hide the spinner
+      this.spin.className = 'dpn';
+      // Resume auto-play if it was active
+
+      if (this.showButtons) {
         this.alts.innerText = e.target.src.split('/').pop();
-    }
-    this.loadComplete();
+      }
     };
 
-    this.imgs.onerror = (e) => {
+    this.imgs.onerror = e => {
       e.target.onerror = null;
       e.target.src = imageSource;
     };
 
-    this.fine.innerText = Number(this.indexOfImage) + 1;
+    if (this.fine) this.fine.innerText = Number(this.indexOfImage) + 1;
     append(this.insi, this.imgs);
+    this.leftRightButtonsVisibility();
   },
 
   // Listen for clicks on images and show the corresponding image
@@ -153,5 +144,5 @@ export const methods = {
       this.show();
       e.stopImmediatePropagation();
     }
-  }
+  },
 };

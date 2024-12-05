@@ -2,10 +2,10 @@
 // Use JSHint to enforce ECMAScript version 11 (ES2020) syntax rules.
 
 // Import necessary modules
-import { UI } from './ui';           // Import the UI class for managing the user interface
+import { UI } from './ui'; // Import the UI class for managing the user interface
 import { listeners } from './events'; // Import event listeners for handling user interactions
-import { methods } from './methods';  // Import the methods module, which contains the image viewer functionality
-import { defaults } from './defaults';// Import default configuration settings for the UI
+import { methods } from './methods'; // Import the methods module, which contains the image viewer functionality
+import { defaults } from './defaults'; // Import default configuration settings for the UI
 
 // Assign methods from the 'methods' module to the UI prototype
 // This allows the UI instance to have access to methods defined in 'methods.js'
