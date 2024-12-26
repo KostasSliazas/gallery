@@ -1,6 +1,6 @@
 /*jshint esversion: 11 */
 // Use JSHint to enforce ECMAScript version 11 (ES2020) syntax rules.
-import { element, append, d, delay } from './helpers';
+import { element, append, d/*, delay*/ } from './helpers';
 
 class UI {
   constructor(conf) {
@@ -92,7 +92,7 @@ class UI {
     }
 
     // Delay class change to prevent rendering glitches
-    delay(() => (that.imag.className = 'sca hdi fff w10 tpo lft'), 220);
+    // delay(() => (that.imag.className = 'sca hdi fff w10 tpo lft'), 220);
   }
 }
 

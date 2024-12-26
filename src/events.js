@@ -115,5 +115,5 @@ export function listeners() {
 
   // Attach event listeners for click and keyboard events
   that.imag.addEventListener('click', switcher.bind(that));
-  w.addEventListener('keyup', switcher.bind(that));
+  window.addEventListener('keyup', switcher.bind(that));
 }

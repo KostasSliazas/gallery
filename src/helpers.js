@@ -2,7 +2,7 @@
 // Use JSHint to enforce ECMAScript version 11 (ES2020) syntax rules.
 
 // Select the document and document element for convenient use
-const w = window; // Reference to the global window object
+// const w = window; // Reference to the global window object
 const d = document; // Reference to the document object
 const de = d.documentElement; // Reference to the root <html> element
 
@@ -28,7 +28,7 @@ const element = (tagName, ...attributes) => {
 };
 
 // Helper function to introduce a delay before executing a callback function
-const delay = (callback, milliseconds) => setTimeout(callback, milliseconds);
+// const delay = (callback, milliseconds) => setTimeout(callback, milliseconds);
 
 // Export the helper functions for use in other modules or scripts
-export { element, append, w, d, de, delay };
+export { element, append,/* w,*/ d, de/*, delay */};

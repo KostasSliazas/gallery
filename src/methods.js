@@ -24,7 +24,7 @@ export const methods = {
     this.isAutoPlayOn = true;
 
     // Set a timeout to move to the next image after a specified delay
-    this.timeOut = delay(() => {
+    this.timeOut = setTimeout(() => {
       if (this.isAutoPlayOn) {
         this.right().show();
 
@@ -98,9 +98,9 @@ export const methods = {
     if (!this.isActive) {
       this.isActive = true;
 
-      delay(() => {
+      // delay(() => {
         de.className = de.className ? de.className + ' fff' : 'fff';
-      }, 34); // Delay for smoother fullscreen transition
+      // }, 34); // Delay for smoother fullscreen transition
 
       this.imag.className = 'fff w10 tpo lft';
     }
