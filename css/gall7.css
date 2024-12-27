@@ -10,7 +10,7 @@
   color: #aaa;
   position: fixed;
   z-index: 999999;
-  transition: transform 0.2s;
+  transition: transform .2s;
 }
 
 #imag7 #insi7 img {
@@ -63,8 +63,8 @@
   width: 20%;
   min-width: 96px;
   border: 0;
-  background: none;
   height: 100%;
+  border-radius: 0;
 }
 
 #imag7 #ilef7::after,
@@ -209,7 +209,7 @@
 }
 
 #imag7 .but {
-  background: rgba(77, 77, 77, 0.2);
+  background: transparent;
   height: 48px;
   width: 48px;
   border-radius: 50%;
@@ -222,16 +222,17 @@
 #imag7 .but::before {
   content: "";
 }
-#imag7 .but:focus,
+
 #imag7 .but:hover,
 #imag7 .but:hover span {
   background: rgba(7, 7, 7, 0.1);
-  outline: 0;
   opacity: 1;
 }
-
+#imag7 .but:focus{
+  outline: 0;
+}
 #imag7 .but:active { opacity: 0.3;}
-#imag7 .dpn { visibility:hidden;}
+#imag7 .dpn { visibility:hidden;background:none;}
 #imag7 .hdi, #imag7.hdi {opacity: 0}
 #imag7 .opa { opacity: 0.7;}
 #imag7 .rgt { right: 0;}
@@ -240,10 +241,10 @@
 #imag7.fff,#imag7 .fff, html.fff { overflow: hidden !important;}
 #imag7.sca{transform: scale(0);}
 
-@media (min-width: 1024px) {
+/*@media (min-width: 1024px) {
 #imag7:not(:hover) #insi7 ~ button,
 #imag7:not(:hover) #cent7 ~ div {
   opacity: 0;
 }
-}
+}*/
 
