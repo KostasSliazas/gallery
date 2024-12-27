@@ -222,13 +222,11 @@
 #imag7 .but::before {
   content: "";
 }
-
+#imag7 .but:focus,
 #imag7 .but:hover,
 #imag7 .but:hover span {
   background: rgba(7, 7, 7, 0.1);
   opacity: 1;
-}
-#imag7 .but:focus{
   outline: 0;
 }
 #imag7 .but:active { opacity: 0.3;}
