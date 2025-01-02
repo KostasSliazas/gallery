@@ -229,8 +229,8 @@
   opacity: 1;
   outline: 0;
 }
-#imag7 .but:active { opacity: 0.3;}
-#imag7 .dpn { visibility:hidden;background:none;}
+#imag7 .but:active { opacity: 0.3}
+#imag7 .dpn { display: none}
 #imag7 .hdi, #imag7.hdi {opacity: 0}
 #imag7 .opa { opacity: 0.7;}
 #imag7 .rgt { right: 0;}
