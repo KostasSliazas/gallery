@@ -216,6 +216,8 @@
   border: 0;
   cursor: pointer;
   transition: .2s;
+  margin: 0;
+  padding: 0;
 }
 
 #imag7 .but::after,
