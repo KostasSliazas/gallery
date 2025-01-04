@@ -15,11 +15,59 @@ is_supported_image() {
     return 1
 }
 
-# Check if mogrify is installed
-if ! command -v mogrify &> /dev/null; then
-    echo "Error: ImageMagick (mogrify) is required but not installed."
-    exit 1
-fi
+# Function to check and install required tools
+check_and_install_tools() {
+    # List of required tools
+    local tools=("exiftool" "exiv2" "mogrify")
+    local missing_tools=()
+
+    # Check for missing tools
+    for tool in "${tools[@]}"; do
+        if ! command -v "$tool" &> /dev/null; then
+            missing_tools+=("$tool")
+        fi
+    done
+
+    # If no tools are missing, return
+    if [ ${#missing_tools[@]} -eq 0 ]; then
+        echo "All required tools are installed."
+        return
+    fi
+
+    # Display missing tools
+    echo "The following tools are missing:"
+    for tool in "${missing_tools[@]}"; do
+        echo " - $tool"
+    done
+
+    # Ask user if they want to install missing tools
+    read -p "Do you want to install them now? (y/n): " choice
+    if [[ "$choice" =~ ^[Yy]$ ]]; then
+        # Detect package manager
+        if command -v apt &> /dev/null; then
+            sudo apt update
+            for tool in "${missing_tools[@]}"; do
+                sudo apt install -y "$tool"
+            done
+        elif command -v yum &> /dev/null; then
+            sudo yum install -y epel-release # Required for exiftool in some cases
+            for tool in "${missing_tools[@]}"; do
+                sudo yum install -y "$tool"
+            done
+        elif command -v brew &> /dev/null; then
+            for tool in "${missing_tools[@]}"; do
+                brew install "$tool"
+            done
+        else
+            echo "No supported package manager found. Please install the tools manually."
+            exit 1
+        fi
+    else
+        echo "Missing tools must be installed manually. Exiting."
+        exit 1
+    fi
+}
+
 
 # Function to create a backup of files
 create_backup() {
@@ -50,16 +98,18 @@ convert_images() {
 =====================================
    CUTE Batch Image Converter Menu
 =====================================
- 1) Create Backup
+ 1) Create backup
  2) Prefix file name
- 3) Resize or Scale Images
- 4) Generate Image List
- 5) Exit
+ 3) Resize or scale images
+ 4) Generate image HTML list
+ 5) Removing image metadata
+ 6) Show EXIF data
+ 7) Exit
 =====================================
 EOF
 
         # Prompt user for their choice
-        read -p "Choose an option (1-5): " menu_choice
+        read -p "Choose an option (1-7): " menu_choice
 
         case $menu_choice in
             1)
@@ -222,6 +272,40 @@ EOF
                 echo "Image list saved in images.txt"
                 ;;
             5)
+                # Remove metadata
+                echo "Removing metadata from images..."
+
+                # Process PNG, JPG, JPEG, and WEBP files
+                for file in *.{png,jpg,jpeg,webp}; do
+                    if [ -f "$file" ]; then
+                        echo "Processing: $file"
+
+                        # Use exiftool to clear all metadata
+                        exiftool -all= "$file" -overwrite_original
+
+                        # Use exiv2 only for JPG/JPEG files to ensure further cleanup
+                        [[ $file == *.jpg || $file == *.jpeg ]] && exiv2 rm "$file"
+
+                        echo "Metadata removed: $file"
+                        echo "---------------------------------------------------"
+                    fi
+                done
+
+                echo "All metadata removed from supported image files."
+                ;;
+            6)
+                # EXIF Data
+                echo "-------------------- EXIF Data --------------------"
+                for file in *.{png,jpg,jpeg,webp}; do
+                    if [ -f "$file" ]; then
+                        echo "Processing: $file"
+                        exiftool "$file"
+                        echo "---------------------------------------------------"
+                    fi
+                done
+                echo "---------------------------------------------------"
+                ;;
+            7)
                 # Exit the script
                 echo "Exiting. Goodbye!"
                 exit 0
@@ -233,6 +317,7 @@ EOF
         esac
     done
 }
-
+# Check and install required tools
+check_and_install_tools
 # Run the conversion menu
 convert_images
