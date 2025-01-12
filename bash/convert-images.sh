@@ -81,8 +81,8 @@ create_backup() {
 # Function to handle conversion
 convert_images() {
     # Ask if we want to exclude prefixed files and store that info in a variable
-    read -p "Do you want to exclude prefixed files (e.g., with 'l-') from further operations? (Y/n): " exclude_prefixed
-    exclude_prefixed=${exclude_prefixed,,}  # Convert to lowercase
+#     read -p "Do you want to exclude prefixed files (e.g., with 'l-') from further operations? (Y/n): " exclude_prefixed
+#     exclude_prefixed=${exclude_prefixed,,}  # Convert to lowercase
     if [[ -z "$exclude_prefixed" || "$exclude_prefixed" == "y" ]]; then
         exclude_prefixed=true
     else
@@ -190,6 +190,10 @@ EOF
                         echo "2) 300x200"
                         echo "3) 500x300"
                         echo "4) 800x600"
+                        echo "5) 1024x768"
+                        echo "6) 1280x1024"
+                        echo "7) 1920x1080"
+
                         read -p "Enter choice (1-4): " resize_choice
 
                         case $resize_choice in
@@ -197,6 +201,10 @@ EOF
                             2) RESIZE="300x200" ;;
                             3) RESIZE="500x300" ;;
                             4) RESIZE="800x600" ;;
+                            5) RESIZE="1024x768" ;;
+                            6) RESIZE="1280x1024" ;;
+                            7) RESIZE="1920x1080" ;;
+
                             *) echo "Invalid choice."; continue ;;
                         esac
                         echo "Resizing images to $RESIZE..."
