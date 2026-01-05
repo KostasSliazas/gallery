@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Image gallery JavaScript</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+  <meta property="og:url" content="https://kostassliazas.github.io/gallery/">
+  <meta property="og:type" content="Image gallery">
+  <meta property="og:title" content="Image gallery JavaScript plain">
+  <meta property="og:description" content="Image gallery JavaScript + CSS">
+  <meta property="og:image" content="https://kostassliazas.github.io/gallery/photos/image1.jpg">
+  <meta name="title" content="Simple image gallery JavaScript + CSS (full screen) with play button">
+  <meta name="description" content="Simple image gallery without libraries JavaScript(plain) + CSS">
+  <meta name="keywords" content="gallery,image,JavaScript,vanilla,photo,CSS,full,screen,play,auto,buttons">
+  <meta name="language" content="English">
+  <meta name="author" content="Kostas Šliažas">
+  <link rel="canonical" href="https://kostassliazas.github.io/gallery/">
+  <link rel="preload" href="css/listimg.min.css" as="style">
+  <link rel="stylesheet" href="css/listimg.min.css">
+  <link rel="preload" href="css/style.min.css" as="style">
+  <link rel="stylesheet" href="css/style.min.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
+</head>
+
+<body>
+  <div id="wrapLoad">
+    <div id="loader"></div>
+    <div id="load"></div>
+  </div>
+  <header>
+    <div id="nav">
+      <nav>
+        <ul>
+          <li><a href="#home">HOME</a></li>
+          <li><a href="#howto">HOW TO</a></li>
+          <li><a href="#demo">DEMO</a></li>
+          <li><a href="#about">ABOUT</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home">
+
+    <div class="grids">
+      <div>
+        <p>We have added some possibilities to have control over gallery properties when compiling code. For example, you can change the directory or extension, change the auto-play delay time, and choose whether to show buttons or not.
+        </p>
+      </div>
+      <div>
+        <p>The gallery has auto-play. You can press the space button or just click the play button and watch images all day in full screen. You can move the mouse away from the window, and the buttons will be hidden. Click on the image and auto-play will be stopped.
+        </p>
+      </div>
+      <div>
+        <p>You can watch images on any display. The gallery adjusts dynamically, utilizing a media query (min-width: 1024px) to hide buttons when you move the mouse cursor away from the browser window, as the gallery takes up the entire window size.
+        </p>
+      </div>
+    </div>
+    <div class="wrp">
+      <div id="demo" class="center">
+        <div class="images-container images">
+          <ul>
+            <li><img src="photos/car1.svg" loading="lazy" alt="image gallery1"></li>
+            <li><img src="photos/car2.svg" loading="lazy" alt="image gallery2"></li>
+            <li><img src="photos/car3.svg" loading="lazy" alt="image gallery3"></li>
+            <li><img src="photos/car4.svg" loading="lazy" alt="image gallery4"></li>
+            <li><img src="photos/car5.svg" loading="lazy" alt="image gallery5"></li>
+            <li><img src="photos/car6.svg" loading="lazy" alt="image gallery6"></li>
+            <li><img src="photos/image7.jpg" loading="lazy" alt="image gallery6"></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div id="howto" class="wrp">
+      <h1>How to include</h1>
+      <p><a href="https://kostassliazas.github.io/gallery/js/main.js" target="_blank" rel="noopener noreferrer" download="suggestedFileName.js">Download</a> JavaScript file (main.js ~9 KiB) and suggest a suitable file name</p>
+      <p>Copy/Paste ctrl+a/ctrl+c/ctrl+v to head or before closing body tag</p>
+      <div class="center code okay">
+        <p class="code__p"><i class="code__i--re">&lt;</i>script defer src =<i class="code__i--sc"><a href="https://kostassliazas.github.io/gallery/js/main.js" target="_blank" rel="noopener noreferrer">"js/main.js"</a></i><i class="code__i--re">&gt;</i><i class="code__i--re">&lt;/</i>script<i class="code__i--re">&gt;</i></p>
+      </div>
+    </div>
+    <div id="about" class="grid-container transit samebg">
+      <div class="wrp lines">
+        <div class="a2">
+          <ul>
+            <li>imageContainer: image gallery - selects all images with given classes. if not set, it selects all images by default.</li>
+            <li>showButtons: show bottom buttons - controls the visibility of bottom buttons (e.g., autoplay and download).</li>
+            <li>folder: folder location for higher resolution images or image prefix - specifies the location for higher resolution images or sets an image prefix.</li>
+            <li>delaySeconds: autoplay delay - sets the duration for displaying each image in autoplay mode.</li>
+            <li>showButtonsOnplay: show buttons during autoplay - determines whether to display buttons during autoplay.</li>
+            <li>extension: extension for higher resolution images - specifies the file extension for higher resolution images.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <p>2023 Kostas Šliažas</p>
+    </footer>
+  </main>
+  <script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+      var load = document.getElementById('loader');
+      var elem = document.getElementById('wrapLoad');
+
+      if (!load || !elem) {
+        console.error('Loader or wrapLoad elements not found');
+        return;
+      }
+
+      setTimeout(function () {
+        elem.style.opacity = 0;
+      }, 2900);
+
+      setTimeout(function () {
+        elem.style.display = "none";
+        load.style.display = "none";
+      }, 1000);
+
+    });
+  </script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
