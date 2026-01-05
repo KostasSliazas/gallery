@@ -1,0 +1,253 @@
+@-webkit-keyframes r {
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes r {
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+#imag7 {
+  user-select: none;
+  background: #223;
+  color: #777;
+  position: fixed;
+  z-index: 999999;
+  transition: .2s transform;
+}
+
+#insi7 img {
+  background: #334;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+#imag7 *,
+#imag7 ::after,
+#imag7 ::before {
+  font: 12px/4 sans-serif;
+  position: absolute;
+  box-sizing: border-box;
+}
+
+#imag7 button * {
+  z-index: -1;
+  pointer-events: none;
+}
+
+#insi7 {
+  text-align: center;
+}
+
+#foot7,
+#onow7 {
+  text-indent: 50px;
+  white-space: nowrap;
+  bottom: 24px;
+  height: 48px;
+}
+
+#alts7 {
+  right: 50px;
+}
+
+#alts7,
+#insi7,
+#insi7 img,
+#stat7 {
+  position: relative;
+}
+
+#left7,
+#rigt7 {
+  width: 20%;
+  min-width: 96px;
+  border: 0;
+  background: none;
+  height: 100%;
+}
+
+#ilef7::after,
+#irig7::after {
+  padding: 9px;
+  top: 14px;
+}
+
+#ilef7::after {
+  border-width: 2px 0 0 2px;
+  left: 14px;
+}
+
+#irig7::after {
+  right: 14px;
+  border-width: 2px 2px 0 0;
+}
+
+#left7:hover #ilef7::after {
+  left: 9px;
+}
+
+#rigt7:hover #irig7::after {
+  right: 9px;
+}
+
+#clos7::after,
+#clos7::before {
+  border-width: 0 0 0 2px;
+  height: 30px;
+  left: 23px;
+  top: 10px;
+}
+
+#play7::before,
+#spn {
+  border-radius: 50%;
+  height: 24px;
+  width: 24px;
+}
+
+#spn {
+  -webkit-animation: r 0.3s linear infinite;
+  animation: r 0.3s linear infinite;
+  border-color: transparent #aaa;
+  left: 50%;
+  margin: -12px 0 0 -12px;
+  top: 50%;
+}
+
+#down7 {
+  border-radius: 0 0 2px 2px;
+  top: 27px;
+  height: 6px;
+  width: 24px;
+  border-top: 0;
+}
+
+#play7::before {
+  transition: 0.2s border-radius;
+  top: 12px;
+}
+
+#play7.atc::before {
+  border-radius: 4px;
+}
+
+#play7::after {
+  border-color: transparent #fff;
+  border-width: 5px 0 5px 12px;
+  left: 19px;
+  top: 19px;
+  width: 10px;
+}
+
+#play7.atc::after {
+  border-width: 0 2px;
+  padding-top: 10px;
+}
+
+#wdow7::after {
+  border-width: 0 0 2px 2px;
+  bottom: 21px;
+  height: 12px;
+  left: 18px;
+  width: 12px;
+}
+
+#wdow7::before {
+  background: #fff;
+  height: 18px;
+  left: 23px;
+  top: 9px;
+  width: 2px;
+}
+
+#clos7 {
+  top: 24px;
+}
+
+#down7,
+#play7::before {
+  left: 12px;
+}
+
+#clos7,
+#irig7,
+#onow7 {
+  right: 24px;
+  text-align: right;
+}
+
+#foot7,
+#ilef7 {
+  left: 24px;
+}
+
+.trn,
+#insi7 img {
+  top: 50%;
+  z-index: -1;
+  -webkit-transform: translate(-50%);
+  transform: translateY(-50%);
+}
+
+.rtp::before,
+.rtp::after {
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.rtm::after {
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.hdi {
+  opacity:0;
+}
+.sca{
+  transform: scale(0);
+}
+.w10 {
+  height: 100%;
+  width: 100%;
+}
+.bor,
+.bra::after,
+.brb::before {
+  border: 2px solid #fff;
+}
+.but {
+  background: rgba(77, 77, 77, 0.2);
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  border: 0;
+  cursor: pointer;
+}
+
+.but::after,
+.but::before {
+  content: "";
+}
+.but:focus,
+.but:hover,
+.but:hover span {
+  background: rgba(7, 7, 7, 0.1);
+  outline: 0;
+  opacity: 1;
+}
+
+.but:active { opacity: 0.3;}
+.fff { overflow: hidden !important;}
+.dpn { display: none;}
+.opa { opacity: 0.7;}
+.tpo { top: 0;}
+.lft { left: 0;}
+.rgt { right: 0;}
+
+
