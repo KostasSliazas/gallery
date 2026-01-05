@@ -1,12 +1,6 @@
 # Gallery
 
 Welcome to **kostassliazas.github.io/gallery**, a showcase of images, projects, or experiments.
-## Quick Links
-
-- [1.Demo](https://kostassliazas.github.io/gallery/#demo)  [2.Demo(full screen)](https://kostassliazas.github.io/gallery/dist/#demo) [3.Demo(Custom extension)](https://kostassliazas.github.io/K7/)
-- [Setup Instructions](#setup-instructions)
-- [Technologies Used](#technologies-used)
-- [License](#license)
 
 ## Setup Instructions
 
