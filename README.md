@@ -41,7 +41,7 @@ export const defaults = {
 ## Technologies Used
 
 - **HTML**: Structure of the gallery.
-- **CSS**: Custom styles for layout and design.
+- **CSS(encoded with base64 to JS)**: Custom styles for layout and design.
 - **JavaScript**: Interactive elements like image sliders or lightboxes.
 
 ## License
